@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "291581242565",
+    "project_id": "swipeshare-4dda3",
+    "storage_bucket": "swipeshare-4dda3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:291581242565:android:f58090ab55e23ce4be14ac",
+        "android_client_info": {
+          "package_name": "com.example.ruswipeshare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "291581242565-e78k51oqmh16gucul3r06du8tenhk7bq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMZUITiSkYYFEcaaSnuX70okfS-dpSGzs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "291581242565-e78k51oqmh16gucul3r06du8tenhk7bq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "291581242565-5qar1a26ki4jkgvopd14j7dmc6s68rle.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.ruswipeshare"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

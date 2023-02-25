@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>291581242565-5qar1a26ki4jkgvopd14j7dmc6s68rle.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.291581242565-5qar1a26ki4jkgvopd14j7dmc6s68rle</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAnFVTAMj4qTOIes3fvbKmmPW60mYb69qs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>291581242565</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.ruswipeshare</string>
+	<key>PROJECT_ID</key>
+	<string>swipeshare-4dda3</string>
+	<key>STORAGE_BUCKET</key>
+	<string>swipeshare-4dda3.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:291581242565:ios:0425a676de6454cfbe14ac</string>
+</dict>
+</plist>
