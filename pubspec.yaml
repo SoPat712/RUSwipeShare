@@ -40,6 +40,7 @@ dependencies:
   flutterfire_ui: ^0.4.3+20
   google_sign_in: ^5.4.4
   flutter_dotenv: ^5.0.2
+  firebase_ui_auth: ^1.1.14
 
 dev_dependencies:
   flutter_test:
@@ -64,9 +65,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-assets:
-  - .env
-  - assets/ruexpress.png
+  assets:
+    - .env
+    - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
