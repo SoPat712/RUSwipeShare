@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'home.dart';
 
 class AuthGate extends StatelessWidget {
@@ -9,14 +9,17 @@ class AuthGate extends StatelessWidget {
 
  @override
  Widget build(BuildContext context) {
+  String webId = dotenv.env['GOOGLEWEBSDK']!;
    return StreamBuilder<User?>(
      stream: FirebaseAuth.instance.authStateChanges(),
      builder: (context, snapshot) {
        if (!snapshot.hasData) {
          return SignInScreen(
-           providerConfigs: const [
-             EmailProviderConfiguration(),
-             GoogleProviderConfiguration(),
+           providerConfigs: [
+             const EmailProviderConfiguration(),
+             GoogleProviderConfiguration(
+              clientId: webId,
+            )
            ],
            headerBuilder: (context, constraints, shrinkOffset) {
              return Padding(
