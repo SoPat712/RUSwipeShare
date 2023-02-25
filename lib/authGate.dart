@@ -15,6 +15,7 @@ class AuthGate extends StatelessWidget {
      builder: (context, snapshot) {
        if (!snapshot.hasData) {
          return SignInScreen(
+          showAuthActionSwitch: false,
            providerConfigs: const [
              GoogleProviderConfiguration(
               clientId: "291581242565-mjeocm5vqg9pntpnv5uk4o4mfoa0k5e6.apps.googleusercontent.com",
