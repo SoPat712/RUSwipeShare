@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'home.dart';
 
 class AuthGate extends StatelessWidget {
@@ -9,33 +8,23 @@ class AuthGate extends StatelessWidget {
 
  @override
  Widget build(BuildContext context) {
-  String webId = dotenv.env['GOOGLEWEBSDK']!;
+    AssetImage ruExpressAsset = const AssetImage('assets/ruexpress.png');
+    Image image = Image(image: ruExpressAsset, width: 400, height: 400);
    return StreamBuilder<User?>(
      stream: FirebaseAuth.instance.authStateChanges(),
      builder: (context, snapshot) {
        if (!snapshot.hasData) {
          return SignInScreen(
-           providerConfigs: [
-             const EmailProviderConfiguration(),
+           providerConfigs: const [
              GoogleProviderConfiguration(
-              clientId: webId,
+              clientId: "291581242565-mjeocm5vqg9pntpnv5uk4o4mfoa0k5e6.apps.googleusercontent.com",
             )
            ],
-           headerBuilder: (context, constraints, shrinkOffset) {
-             return Padding(
-               padding: const EdgeInsets.all(20),
-               child: AspectRatio(
-                 aspectRatio: 1,
-                 child: Image.asset('flutterfire_300x.png'),
-               ),
-             );
-           },
+           
            subtitleBuilder: (context, action) {
-             return Padding(
-               padding: const EdgeInsets.symmetric(vertical: 8.0),
-               child: action == AuthAction.signIn
-                   ? const Text('Welcome to FlutterFire, please sign in!')
-                   : const Text('Welcome to Flutterfire, please sign up!'),
+             return const Padding(
+               padding: EdgeInsets.symmetric(vertical: 8.0),
+               child: Text('Welcome to RUSwipeShare, please sign in with your RUID Gmail account!')
              );
            },
            footerBuilder: (context, action) {
@@ -44,15 +33,6 @@ class AuthGate extends StatelessWidget {
                child: Text(
                  'By signing in, you agree to our terms and conditions.',
                  style: TextStyle(color: Colors.grey),
-               ),
-             );
-           },
-           sideBuilder: (context, shrinkOffset) {
-             return Padding(
-               padding: const EdgeInsets.all(20),
-               child: AspectRatio(
-                 aspectRatio: 1,
-                 child: Image.asset('flutterfire_300x.png'),
                ),
              );
            },
