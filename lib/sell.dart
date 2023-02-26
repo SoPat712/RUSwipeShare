@@ -237,27 +237,30 @@ class _SellScreenState extends State<SellScreen> {
               ),
             ],
           ),
-          ElevatedButton(
-            onPressed: () {
-              List<String> locations = [];
-              User? user = auth.currentUser;
-              values.forEach((key, value) {
-                if (value == true) locations.add(key);
-              });
-              if (user != null) {
-                Seller seller = Seller(
-                    user.displayName,
-                    user.uid,
-                    locations,
-                    TimeRange(Timestamp.fromDate(startTimeTime),
-                        Timestamp.fromDate(endTimeTime)),
-                    double.parse(priceController.text));
-                addSeller(seller);
-              }
-            },
-            style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateColor.resolveWith((states) => Colors.blue),
+        ),
+        Expanded(
+          child: Center(
+            child: Container(
+              child: ElevatedButton(
+                onPressed: () {
+                  List<String> locations = [];
+                  User? user = auth.currentUser;
+                  values.forEach((key, value) {
+                    if (value == true) locations.add(key);
+                  });
+                  if (user != null) {
+                    Seller seller = Seller(
+                        user.displayName,
+                        user.uid,
+                        locations,
+                        TimeRange(Timestamp.fromDate(startTimeTime),
+                            Timestamp.fromDate(endTimeTime)),
+                        double.parse(priceController.text));
+                    addSeller(seller);
+                  }
+                },
+                child: const Text('Submit Sell Request'),
+              ),
             ),
           ),
         ),
