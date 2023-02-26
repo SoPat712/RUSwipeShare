@@ -48,6 +48,8 @@ class _SellScreenState extends State<SellScreen> {
         padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
         child:
             Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+        child:
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           Row(
             children: [
               Expanded(
@@ -199,14 +201,12 @@ class _SellScreenState extends State<SellScreen> {
               });
               if (user != null) {
                 Seller seller = Seller(
-                    "",
+                    user.displayName,
                     user.uid,
                     locations,
                     TimeRange(Timestamp.fromDate(startTimeTime),
                         Timestamp.fromDate(endTimeTime)),
                     double.parse(priceController.text));
-                print("SIFSIFISFHJIS");
-                print(seller);
                 addSeller(seller);
               }
             },
