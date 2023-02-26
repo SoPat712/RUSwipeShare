@@ -315,41 +315,67 @@ class _BuyScreenState extends State<BuyScreen> {
                     itemBuilder: (BuildContext context, int index) {
                       return InkWell(
                         onTap: () {
-                          Dialogs.materialDialog(
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                            customView: const TransactionDetails(),
-                            customViewPosition:
-                                CustomViewPosition.BEFORE_ACTION,
-                            msgAlign: TextAlign.center,
-                            msg:
-                                'Please read all the information below before purchasing.\n',
-                            title: 'Transaction Details',
-                            context: context,
-                            actions: [
-                              IconsOutlineButton(
-                                  onPressed: () {},
-                                  text: 'Cancel',
-                                  iconData: Icons.cancel_outlined,
-                                  color: Theme.of(context).primaryColor,
-                                  textStyle: TextStyle(
-                                    color: CustomMaterialColor(240, 240, 240)
-                                        .mdColor,
-                                  ),
-                                  iconColor: CustomMaterialColor(240, 240, 240)
-                                      .mdColor),
-                              IconsButton(
-                                  onPressed: () {},
-                                  text: 'Purchase',
-                                  iconData: Icons.done,
-                                  color: Colors.green,
-                                  textStyle: TextStyle(
-                                    color: CustomMaterialColor(240, 240, 240)
-                                        .mdColor,
-                                  ),
-                                  iconColor: CustomMaterialColor(240, 240, 240)
-                                      .mdColor),
-                            ],
-                          );
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) => Dialog(
+                                  backgroundColor:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20))),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        const Text('Transaction Details'),
+                                        const SizedBox(height: 15),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text('Close'),
+                                        ),
+                                      ],
+                                    ),
+                                  )));
+                          // Dialogs.materialDialog(
+                          //   color: Theme.of(context).scaffoldBackgroundColor,
+                          //   customView: const TransactionDetails(),
+                          //   customViewPosition:
+                          //       CustomViewPosition.BEFORE_ACTION,
+                          //   msgAlign: TextAlign.center,
+                          //   msg:
+                          //       'Please read all the information below before purchasing.\n',
+                          //   title: 'Transaction Details',
+                          //   context: context,
+                          //   actions: [
+                          //     IconsOutlineButton(
+                          //         onPressed: () {},
+                          //         text: 'Cancel',
+                          //         iconData: Icons.cancel_outlined,
+                          //         color: Theme.of(context).primaryColor,
+                          //         textStyle: TextStyle(
+                          //           color: CustomMaterialColor(240, 240, 240)
+                          //               .mdColor,
+                          //         ),
+                          //         iconColor: CustomMaterialColor(240, 240, 240)
+                          //             .mdColor),
+                          //     IconsButton(
+                          //         onPressed: () {},
+                          //         text: 'Purchase',
+                          //         iconData: Icons.done,
+                          //         color: Colors.green,
+                          //         textStyle: TextStyle(
+                          //           color: CustomMaterialColor(240, 240, 240)
+                          //               .mdColor,
+                          //         ),
+                          //         iconColor: CustomMaterialColor(240, 240, 240)
+                          //             .mdColor),
+                          //   ],
+                          // );
                         },
                         child: Container(
                           decoration: BoxDecoration(
