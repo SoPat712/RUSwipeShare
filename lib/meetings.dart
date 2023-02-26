@@ -17,7 +17,7 @@ class PriceRange {
 }
 
 class Seller implements Comparable<Seller> {
-  String name = "";
+  String? name = "Unknown Seller";
   String uid = "";
   List<dynamic> location;
   TimeRange availableTime;
