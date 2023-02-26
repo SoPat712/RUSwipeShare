@@ -383,63 +383,6 @@ class _BuyScreenState extends State<BuyScreen> {
                             return InkWell(
                               onTap: () {
                                 showSheet(context, index);
-                                // showDialog(
-                                //     context: context,
-                                //     builder: (BuildContext context) => Dialog(
-                                //         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                                //         shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
-                                //         child: Padding(
-                                //           padding: const EdgeInsets.all(8.0),
-                                //           child: Column(
-                                //             mainAxisSize: MainAxisSize.min,
-                                //             mainAxisAlignment: MainAxisAlignment.center,
-                                //             children: <Widget>[
-                                //               const Text('Transaction Details'),
-                                //               const SizedBox(height: 15),
-                                //               TextButton(
-                                //                 onPressed: () {
-                                //                   Navigator.pop(context);
-                                //                 },
-                                //                 child: const Text('Close'),
-                                //               ),
-                                //             ],
-                                //           ),
-                                //         )));
-                                // // Dialogs.materialDialog(
-                                // //   color: Theme.of(context).scaffoldBackgroundColor,
-                                // //   customView: const TransactionDetails(),
-                                // //   customViewPosition:
-                                // //       CustomViewPosition.BEFORE_ACTION,
-                                // //   msgAlign: TextAlign.center,
-                                // //   msg:
-                                // //       'Please read all the information below before purchasing.\n',
-                                // //   title: 'Transaction Details',
-                                // //   context: context,
-                                // //   actions: [
-                                // //     IconsOutlineButton(
-                                // //         onPressed: () {},
-                                // //         text: 'Cancel',
-                                // //         iconData: Icons.cancel_outlined,
-                                // //         color: Theme.of(context).primaryColor,
-                                // //         textStyle: TextStyle(
-                                // //           color: CustomMaterialColor(240, 240, 240)
-                                // //               .mdColor,
-                                // //         ),
-                                // //         iconColor: CustomMaterialColor(240, 240, 240)
-                                // //             .mdColor),
-                                // //     IconsButton(
-                                // //         onPressed: () {},
-                                // //         text: 'Purchase',
-                                // //         iconData: Icons.done,
-                                // //         color: Colors.green,
-                                // //         textStyle: TextStyle(
-                                // //           color: CustomMaterialColor(240, 240, 240)
-                                // //               .mdColor,
-                                // //         ),
-                                // //         iconColor: CustomMaterialColor(240, 240, 240)
-                                // //             .mdColor),
-                                // //   ],
-                                // // );
                               },
                               child: Container(
                                 decoration: BoxDecoration(
@@ -470,7 +413,7 @@ class _BuyScreenState extends State<BuyScreen> {
                                       child: Row(
                                         children: [
                                           Expanded(
-                                            flex: 7,
+                                            flex: 6,
                                             child: Container(
                                               padding:
                                                   EdgeInsets.only(left: 20),
@@ -489,19 +432,49 @@ class _BuyScreenState extends State<BuyScreen> {
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     style: const TextStyle(
-                                                        fontSize: 20),
+                                                        fontSize: 24),
                                                   ),
                                                   Row(
-                                                    children: const [
+                                                    children: [
                                                       Icon(Icons.star,
+                                                          color:
+                                                              CustomMaterialColor(
+                                                                      240,
+                                                                      240,
+                                                                      240)
+                                                                  .mdColor,
                                                           size: 16),
                                                       Icon(Icons.star,
+                                                          color:
+                                                              CustomMaterialColor(
+                                                                      240,
+                                                                      240,
+                                                                      240)
+                                                                  .mdColor,
                                                           size: 16),
                                                       Icon(Icons.star,
+                                                          color:
+                                                              CustomMaterialColor(
+                                                                      240,
+                                                                      240,
+                                                                      240)
+                                                                  .mdColor,
                                                           size: 16),
                                                       Icon(Icons.star_half,
+                                                          color:
+                                                              CustomMaterialColor(
+                                                                      240,
+                                                                      240,
+                                                                      240)
+                                                                  .mdColor,
                                                           size: 16),
                                                       Icon(Icons.star_border,
+                                                          color:
+                                                              CustomMaterialColor(
+                                                                      240,
+                                                                      240,
+                                                                      240)
+                                                                  .mdColor,
                                                           size: 16),
                                                     ],
                                                   ),
@@ -527,14 +500,14 @@ class _BuyScreenState extends State<BuyScreen> {
                                             ),
                                           ),
                                           Expanded(
-                                            flex: 3,
+                                            flex: 4,
                                             child: Container(
                                               padding:
                                                   EdgeInsets.only(right: 15),
                                               child: Text(
                                                 '\$${price}',
                                                 textAlign: TextAlign.end,
-                                                style: TextStyle(fontSize: 44),
+                                                style: TextStyle(fontSize: 30),
                                               ),
                                             ),
                                           ),
