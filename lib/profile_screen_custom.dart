@@ -111,10 +111,14 @@ class _EmailVerificationBadgeState extends State<EmailVerificationBadge> {
           if (state == EmailVerificationState.pending)
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                LoadingIndicator(size: 16, borderWidth: 0.5),
-                SizedBox(width: 16),
-                Text('Waiting for email verification'),
+              children: [
+                
+                const SizedBox(width: 16),
+                Wrap(
+                  children: const [
+                    Text('Log out and log back in to confirm.'),
+                  ],
+                ),
               ],
             )
           else
