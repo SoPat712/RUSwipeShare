@@ -6,7 +6,8 @@
 
 import 'dart:convert';
 
-import 'package:firebase_auth/firebase_auth.dart' show ActionCodeSettings, FirebaseAuth, FirebaseAuthException, User;
+import 'package:firebase_auth/firebase_auth.dart'
+    show ActionCodeSettings, FirebaseAuth, FirebaseAuthException, User;
 import 'package:flutter/cupertino.dart' hide Title;
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' hide Title;
@@ -84,7 +85,9 @@ class _EmailVerificationBadgeState extends State<EmailVerificationBadge> {
 
   @override
   Widget build(BuildContext context) {
-    if (state == EmailVerificationState.dismissed || state == EmailVerificationState.unresolved || state == EmailVerificationState.verified) {
+    if (state == EmailVerificationState.dismissed ||
+        state == EmailVerificationState.unresolved ||
+        state == EmailVerificationState.verified) {
       return const SizedBox.shrink();
     }
 
@@ -104,7 +107,10 @@ class _EmailVerificationBadgeState extends State<EmailVerificationBadge> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Subtitle(
-                    text: state == EmailVerificationState.sent || state == EmailVerificationState.pending ? 'Verification email sent' : 'Email is not verified',
+                    text: state == EmailVerificationState.sent ||
+                            state == EmailVerificationState.pending
+                        ? 'Verification email sent'
+                        : 'Email is not verified',
                     fontWeight: FontWeight.bold,
                   ),
                   if (state == EmailVerificationState.pending) ...[
@@ -134,7 +140,8 @@ class _EmailVerificationBadgeState extends State<EmailVerificationBadge> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                if (state != EmailVerificationState.sent && state != EmailVerificationState.sending)
+                if (state != EmailVerificationState.sent &&
+                    state != EmailVerificationState.sending)
                   UniversalButton(
                     variant: ButtonVariant.text,
                     color: Theme.of(context).colorScheme.error,
@@ -206,11 +213,15 @@ class ProfileScreenCustom extends MultiProviderScreen {
   }
 
   List<ProviderConfiguration> getLinkedProviders(User user) {
-    return providerConfigs.where((config) => user.isProviderLinked(config.providerId)).toList();
+    return providerConfigs
+        .where((config) => user.isProviderLinked(config.providerId))
+        .toList();
   }
 
   List<ProviderConfiguration> getAvailableProviders(User user) {
-    return providerConfigs.where((config) => !user.isProviderLinked(config.providerId)).toList();
+    return providerConfigs
+        .where((config) => !user.isProviderLinked(config.providerId))
+        .toList();
   }
 
   @override

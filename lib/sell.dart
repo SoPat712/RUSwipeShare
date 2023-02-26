@@ -38,7 +38,7 @@ class _SellScreenState extends State<SellScreen> {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: const [
               Icon(Icons.store_mall_directory, color: Colors.red),
               Text('Place'),
             ],
@@ -60,7 +60,7 @@ class _SellScreenState extends State<SellScreen> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: const [
               Icon(Icons.access_time, color: Colors.red),
               Text('Time'),
             ],
@@ -94,10 +94,19 @@ class _SellScreenState extends State<SellScreen> {
                     context: context,
                     initialTime: TimeOfDay.fromDateTime(startTimeTime),
                   );
-                  if (picked != null && picked != TimeOfDay.fromDateTime(startTimeTime)) {
+                  if (picked != null &&
+                      picked != TimeOfDay.fromDateTime(startTimeTime)) {
                     setState(() {
-                      startTimeTime = DateTime.fromMicrosecondsSinceEpoch(picked.hour * 60 * 60 * 1000000 + picked.minute * 60 * 1000000, isUtc: true);
-                      startTime = startTimeTime.hour.toString() + ":" + startTimeTime.minute.toString() + ((is24HoursFormat) ? "" : ((startTimeTime.hour > 12) ? "PM" : "AM"));
+                      startTimeTime = DateTime.fromMicrosecondsSinceEpoch(
+                          picked.hour * 60 * 60 * 1000000 +
+                              picked.minute * 60 * 1000000,
+                          isUtc: true);
+                      startTime = startTimeTime.hour.toString() +
+                          ":" +
+                          startTimeTime.minute.toString() +
+                          ((is24HoursFormat)
+                              ? ""
+                              : ((startTimeTime.hour > 12) ? "PM" : "AM"));
                     });
                   }
                 },
@@ -109,10 +118,19 @@ class _SellScreenState extends State<SellScreen> {
                     context: context,
                     initialTime: TimeOfDay.fromDateTime(endTimeTime),
                   );
-                  if (picked != null && picked != TimeOfDay.fromDateTime(endTimeTime)) {
+                  if (picked != null &&
+                      picked != TimeOfDay.fromDateTime(endTimeTime)) {
                     setState(() {
-                      endTimeTime = DateTime.fromMicrosecondsSinceEpoch(picked.hour * 60 * 60 * 1000000 + picked.minute * 60 * 1000000, isUtc: true);
-                      endTime = endTimeTime.hour.toString() + ":" + endTimeTime.minute.toString() + ((is24HoursFormat) ? "" : ((endTimeTime.hour > 12) ? "PM" : "AM"));
+                      endTimeTime = DateTime.fromMicrosecondsSinceEpoch(
+                          picked.hour * 60 * 60 * 1000000 +
+                              picked.minute * 60 * 1000000,
+                          isUtc: true);
+                      endTime = endTimeTime.hour.toString() +
+                          ":" +
+                          endTimeTime.minute.toString() +
+                          ((is24HoursFormat)
+                              ? ""
+                              : ((endTimeTime.hour > 12) ? "PM" : "AM"));
                     });
                   }
                 },
@@ -122,7 +140,7 @@ class _SellScreenState extends State<SellScreen> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: const [
               Icon(Icons.attach_money, color: Colors.red),
               Text('Cost'),
             ],
@@ -154,7 +172,8 @@ class _SellScreenState extends State<SellScreen> {
           ElevatedButton(
             onPressed: () {},
             style: ButtonStyle(
-              backgroundColor: MaterialStateColor.resolveWith((states) => Colors.blue),
+              backgroundColor:
+                  MaterialStateColor.resolveWith((states) => Colors.blue),
             ),
             child: const Text('Next'),
           ),

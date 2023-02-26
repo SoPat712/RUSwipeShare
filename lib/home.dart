@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:ruswipeshare/buy.dart';
+import 'package:ruswipeshare/main.dart';
 import 'package:ruswipeshare/sell.dart';
 import 'profile_screen_custom.dart';
 import 'main_screen.dart';
@@ -31,14 +32,13 @@ class _HomeScreenState extends State<HomeScreen> {
         PersistentBottomNavBarItem(
             icon: const Icon(Icons.shopping_cart),
             title: "Buy",
-            activeColorPrimary: Colors.blue,
-            inactiveColorPrimary: Colors.grey,
-            inactiveColorSecondary: Colors.purple),
+            activeColorPrimary: CustomMaterialColor(240, 240, 240).mdColor,
+            inactiveColorPrimary: Colors.black38),
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.attach_money),
           title: "Sell",
-          activeColorPrimary: Colors.teal,
-          inactiveColorPrimary: Colors.grey,
+          activeColorPrimary: CustomMaterialColor(240, 240, 240).mdColor,
+          inactiveColorPrimary: Colors.black38,
           routeAndNavigatorSettings: const RouteAndNavigatorSettings(
             initialRoute: "/",
           ),
@@ -46,8 +46,8 @@ class _HomeScreenState extends State<HomeScreen> {
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.person),
           title: "Profile",
-          activeColorPrimary: Colors.blueAccent,
-          inactiveColorPrimary: Colors.grey,
+          activeColorPrimary: CustomMaterialColor(240, 240, 240).mdColor,
+          inactiveColorPrimary: Colors.black38,
           routeAndNavigatorSettings: const RouteAndNavigatorSettings(
             initialRoute: "/",
           ),
@@ -55,8 +55,8 @@ class _HomeScreenState extends State<HomeScreen> {
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.settings),
           title: "Settings",
-          activeColorPrimary: Colors.indigo,
-          inactiveColorPrimary: Colors.grey,
+          activeColorPrimary: CustomMaterialColor(240, 240, 240).mdColor,
+          inactiveColorPrimary: Colors.black38,
           routeAndNavigatorSettings: const RouteAndNavigatorSettings(
             initialRoute: "/",
           ),
@@ -71,17 +71,21 @@ class _HomeScreenState extends State<HomeScreen> {
       screens: _buildScreens(),
       items: _navBarsItems(),
       confineInSafeArea: true,
-      backgroundColor: Colors.white, // Default is Colors.white.
+      backgroundColor:
+          Theme.of(context).primaryColor, // Default is Colors.white.
       handleAndroidBackButtonPress: true, // Default is true.
       resizeToAvoidBottomInset:
           true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
       stateManagement: true, // Default is true.
       hideNavigationBarWhenKeyboardShows:
           true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
-      decoration: NavBarDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        colorBehindNavBar: Colors.white,
-      ),
+      decoration: const NavBarDecoration(
+          // border: Border(
+          //   top: BorderSide(width: 2.0, color: Colors.white),
+          // ),
+          // borderRadius: BorderRadius.circular(10.0),
+          // colorBehindNavBar: Colors.white,
+          ),
       popAllScreensOnTapOfSelectedTab: true,
       popActionScreens: PopActionScreensType.all,
       itemAnimationProperties: const ItemAnimationProperties(
