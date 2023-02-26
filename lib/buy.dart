@@ -39,10 +39,20 @@ final List<List<String>> eatingLocations = [
     'Kilmer\'s Market',
     'Sbarro\'s',
   ],
-  <String>['Neilson Dining Hall', 'Cook Cafe', 'Douglass Cafe', 'Harvest INFH', 'Red Pine Pizza']
+  <String>[
+    'Neilson Dining Hall',
+    'Cook Cafe',
+    'Douglass Cafe',
+    'Harvest INFH',
+    'Red Pine Pizza'
+  ]
 ];
 final List<int> colorCodes = <int>[600, 500, 100];
-final List<String> timeBgAssets = <String>['assets/daytime_swipe.jpg', 'assets/afternoon_swipe.jpg', 'assets/nighttime_swipe.jpg'];
+final List<String> timeBgAssets = <String>[
+  'assets/daytime_swipe.jpg',
+  'assets/afternoon_swipe.jpg',
+  'assets/nighttime_swipe.jpg'
+];
 
 class BuyScreen extends StatefulWidget {
   const BuyScreen({Key? key}) : super(key: key);
@@ -62,6 +72,17 @@ class _BuyScreenState extends State<BuyScreen> {
         return Scaffold(
           body: Column(
             children: [
+              Row(children: [
+                Container(
+                  padding: EdgeInsets.only(left: 10, top: 20),
+                  child: Text(
+                    "Campuses",
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                  ),
+                )
+              ]),
               Expanded(
                   child: Center(
                 child: GridView.count(
@@ -81,7 +102,8 @@ class _BuyScreenState extends State<BuyScreen> {
                         });
                       },
                       child: ClipRRect(
-                        borderRadius: const BorderRadius.all(Radius.circular(25)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(25)),
                         child: Column(
                           children: [
                             Expanded(
@@ -111,7 +133,8 @@ class _BuyScreenState extends State<BuyScreen> {
                         });
                       },
                       child: ClipRRect(
-                        borderRadius: const BorderRadius.all(Radius.circular(25)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(25)),
                         child: Column(
                           children: [
                             Expanded(
@@ -141,7 +164,8 @@ class _BuyScreenState extends State<BuyScreen> {
                         });
                       },
                       child: ClipRRect(
-                        borderRadius: const BorderRadius.all(Radius.circular(25)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(25)),
                         child: Column(
                           children: [
                             Expanded(
@@ -171,7 +195,8 @@ class _BuyScreenState extends State<BuyScreen> {
                         });
                       },
                       child: ClipRRect(
-                        borderRadius: const BorderRadius.all(Radius.circular(25)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(25)),
                         child: Column(
                           children: [
                             Expanded(
@@ -213,6 +238,17 @@ class _BuyScreenState extends State<BuyScreen> {
                   },
                   child: const Text("Choose A Different Location")),
             ),
+            Row(children: [
+              Container(
+                padding: EdgeInsets.only(left: 10, bottom: 10),
+                child: Text(
+                  "Swipe Locations",
+                  style: TextStyle(
+                    fontSize: 30,
+                  ),
+                ),
+              )
+            ]),
             Expanded(
               child: ListView.builder(
                   physics: const BouncingScrollPhysics(),
@@ -220,8 +256,13 @@ class _BuyScreenState extends State<BuyScreen> {
                   padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
-                      margin: const EdgeInsets.all(4),
-                      decoration: BoxDecoration(border: Border.all(color: CustomMaterialColor(240, 240, 240).mdColor, width: 2), borderRadius: const BorderRadius.all(Radius.circular(10))),
+                      margin: const EdgeInsets.fromLTRB(4, 4, 4, 8),
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: CustomMaterialColor(240, 240, 240).mdColor,
+                              width: 2),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10))),
                       child: InkWell(
                         onTap: () {
                           setState(() {
@@ -230,20 +271,24 @@ class _BuyScreenState extends State<BuyScreen> {
                           });
                         },
                         child: ClipRRect(
-                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
                           child: Container(
                             height: 120,
                             decoration: BoxDecoration(
                                 image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: AssetImage("assets/" + nameToAsset[_diningOptions.elementAt(index)]!),
+                              image: AssetImage("assets/" +
+                                  nameToAsset[
+                                      _diningOptions.elementAt(index)]!),
                             )),
                             child: BackdropFilter(
                               filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
                               child: Container(
                                 padding: const EdgeInsets.only(right: 40),
                                 alignment: Alignment.bottomRight,
-                                margin: const EdgeInsets.only(top: 4, left: 20, bottom: 4),
+                                margin: const EdgeInsets.only(
+                                    top: 4, left: 20, bottom: 4),
                                 child: Text(
                                   _diningOptions[index],
                                   overflow: TextOverflow.ellipsis,
@@ -265,21 +310,38 @@ class _BuyScreenState extends State<BuyScreen> {
             children: [
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-                child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                  Flexible(
-                    flex: 8,
-                    fit: FlexFit.tight,
-                    child: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            _currentState = CampusState.campuses;
-                          });
-                        },
-                        child: const Text("Choose A Different Location")),
-                  ),
-                  Flexible(flex: 2, child: ElevatedButton(onPressed: () {}, child: const Icon(Icons.filter_list)))
-                ]),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Flexible(
+                        flex: 8,
+                        fit: FlexFit.tight,
+                        child: ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                _currentState = CampusState.campuses;
+                              });
+                            },
+                            child: const Text("Choose A Different Location")),
+                      ),
+                      Flexible(
+                          flex: 2,
+                          child: ElevatedButton(
+                              onPressed: () {},
+                              child: const Icon(Icons.filter_list)))
+                    ]),
               ),
+              Row(children: [
+                Container(
+                  padding: EdgeInsets.only(left: 10, bottom: 10),
+                  child: Text(
+                    "Available Swipes",
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                  ),
+                )
+              ]),
               Expanded(
                 child: ListView.builder(
                     physics: const BouncingScrollPhysics(),
@@ -348,15 +410,23 @@ class _BuyScreenState extends State<BuyScreen> {
                           // // );
                         },
                         child: Container(
-                          decoration: BoxDecoration(border: Border.all(color: CustomMaterialColor(240, 240, 240).mdColor, width: 2), borderRadius: const BorderRadius.all(Radius.circular(10))),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: CustomMaterialColor(240, 240, 240)
+                                      .mdColor,
+                                  width: 2),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10))),
                           margin: const EdgeInsets.all(4),
                           height: 120,
                           child: ClipRRect(
-                            borderRadius: const BorderRadius.all(Radius.circular(10)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
                             child: Container(
                               decoration: BoxDecoration(
                                   image: DecorationImage(
-                                colorFilter: const ColorFilter.mode(Colors.black26, BlendMode.darken),
+                                colorFilter: const ColorFilter.mode(
+                                    Colors.black26, BlendMode.darken),
                                 fit: BoxFit.cover,
                                 image: AssetImage(timeBgAssets[index % 3]),
                               )),
@@ -369,15 +439,18 @@ class _BuyScreenState extends State<BuyScreen> {
                                       child: Container(
                                         padding: EdgeInsets.only(left: 20),
                                         // color: Colors.red,
-                                        margin: const EdgeInsets.only(top: 4, left: 4, bottom: 4),
+                                        margin: const EdgeInsets.only(
+                                            top: 4, left: 4, bottom: 4),
                                         child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               entries[index % entries.length],
                                               textAlign: TextAlign.start,
                                               overflow: TextOverflow.ellipsis,
-                                              style: const TextStyle(fontSize: 20),
+                                              style:
+                                                  const TextStyle(fontSize: 20),
                                             ),
                                             Row(
                                               children: const [
@@ -385,18 +458,22 @@ class _BuyScreenState extends State<BuyScreen> {
                                                 Icon(Icons.star, size: 16),
                                                 Icon(Icons.star, size: 16),
                                                 Icon(Icons.star_half, size: 16),
-                                                Icon(Icons.star_border, size: 16),
+                                                Icon(Icons.star_border,
+                                                    size: 16),
                                               ],
                                             ),
                                             Expanded(
                                               child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
                                                 children: const [
                                                   Text(
                                                     '88:88PM - 88:88PM',
                                                     textAlign: TextAlign.start,
-                                                    overflow: TextOverflow.ellipsis,
-                                                    style: TextStyle(fontSize: 16),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style:
+                                                        TextStyle(fontSize: 16),
                                                   ),
                                                 ],
                                               ),
@@ -545,7 +622,7 @@ class _BuyScreenState extends State<BuyScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    ElevatedButton( 
+                    ElevatedButton(
                         onPressed: () {},
                         child: Text(
                           "Cancel",
@@ -597,7 +674,8 @@ class _TransactionDetailsState extends State<TransactionDetails> {
     );
   }
 }
- class CustomMaterialColor {
+
+class CustomMaterialColor {
   final int r;
   final int g;
   final int b;

@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'home.dart';
@@ -12,11 +11,7 @@ Future<void> addUser(String? name, String uid) async {
   final CollectionReference users =
       FirebaseFirestore.instance.collection('users');
   return await users
-      .add({
-        'name': name,
-        'uid': uid,
-        'swipes': 0,
-      })
+      .add({'name': name, 'uid': uid, 'swipes': 0, 'seller-id': ""})
       .then((value) => print(""))
       .catchError((error) => print("ERROR ADDING DATA: $error"));
 }
@@ -77,7 +72,7 @@ class AuthGate extends StatelessWidget {
             final name = user.displayName;
             final uid = user.uid;
 
-            addUser(name, uid);
+            addUser("TOAA", uid);
           }
         }
 

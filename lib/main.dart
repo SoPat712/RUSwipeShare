@@ -9,9 +9,10 @@ import 'auth_gate.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  Stripe.publishableKey = "pk_test_51MfY7PFVdcWv896FKvDhgKabYeDq4AnoFcWxCAg4hquj6TBAsN0kznXPVyKA7M1pMq5PsieGQwsx6QY5ld5ZQzJ500rVCMPPXp";
-  
-runApp(const MyApp());
+  Stripe.publishableKey =
+      "pk_test_51MfY7PFVdcWv896FKvDhgKabYeDq4AnoFcWxCAg4hquj6TBAsN0kznXPVyKA7M1pMq5PsieGQwsx6QY5ld5ZQzJ500rVCMPPXp";
+
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -20,23 +21,29 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          primarySwatch: CustomMaterialColor(205, 0, 48).mdColor,
-          scaffoldBackgroundColor: Colors.black87,
-          fontFamily: GoogleFonts.figtree().fontFamily,
-          textTheme: Theme.of(context).textTheme.apply(
-                bodyColor: CustomMaterialColor(240, 240, 240).mdColor,
-                displayColor: CustomMaterialColor(240, 240, 240).mdColor,
-              ),
-          textButtonTheme: TextButtonThemeData(
-              style: ButtonStyle(
-                  textStyle: MaterialStatePropertyAll(TextStyle(
-                      color: CustomMaterialColor(240, 240, 240).mdColor))))),
+        primarySwatch: CustomMaterialColor(205, 0, 48).mdColor,
+        scaffoldBackgroundColor: Colors.black87,
+        fontFamily: GoogleFonts.figtree().fontFamily,
+        textTheme: Theme.of(context).textTheme.apply(
+              bodyColor: CustomMaterialColor(240, 240, 240).mdColor,
+              displayColor: CustomMaterialColor(240, 240, 240).mdColor,
+            ),
+        textButtonTheme: TextButtonThemeData(
+            style: ButtonStyle(
+                textStyle: MaterialStatePropertyAll(TextStyle(
+                    color: CustomMaterialColor(240, 240, 240).mdColor)))),
+        checkboxTheme: CheckboxThemeData(
+          fillColor: MaterialStatePropertyAll(
+              CustomMaterialColor(240, 240, 240).mdColor),
+          checkColor: MaterialStatePropertyAll(Colors.black),
+        ),
+      ),
       home: const AuthGate(),
     );
   }
 }
 
- class CustomMaterialColor {
+class CustomMaterialColor {
   final int r;
   final int g;
   final int b;
