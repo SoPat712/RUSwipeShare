@@ -10,8 +10,8 @@ class TimeRange {
 }
 
 class PriceRange {
-  int low = 0;
-  int high = 0;
+  double low = 0;
+  double high = 0;
 
   PriceRange(this.low, this.high);
 }
@@ -32,7 +32,7 @@ class Seller implements Comparable<Seller> {
 
   @override
   int compareTo(Seller other) {
-    return this.name.compareTo(other.name);
+    return name.compareTo(other.name);
   }
 }
 
