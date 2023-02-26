@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ruswipeshare/sell.dart';
 
 class BuyScreen extends StatefulWidget {
   const BuyScreen({Key? key}) : super(key: key);
@@ -39,64 +40,70 @@ class OffersListView extends StatelessWidget {
     return ListView.builder(
         itemCount: 30,
         itemBuilder: (BuildContext context, int index) {
-          return Container(
-            height: 80,
-            color: Colors.blue,
-            margin: const EdgeInsets.only(top: 4, bottom: 4),
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 7,
-                  child: Container(
-                    color: Colors.red,
-                    margin: EdgeInsets.only(top: 4, left: 4, bottom: 4),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          entries[index % entries.length],
-                          textAlign: TextAlign.start,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(fontSize: 24),
-                        ),
-                        Row(
-                          children: [
-                            Icon(Icons.star, size: 16),
-                            Icon(Icons.star, size: 16),
-                            Icon(Icons.star, size: 16),
-                            Icon(Icons.star_half, size: 16),
-                            Icon(Icons.star_border, size: 16),
-                          ],
-                        ),
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
+          return InkWell(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const SellScreen()));
+            },
+            child: Container(
+              height: 80,
+              color: Colors.blue,
+              margin: const EdgeInsets.only(top: 4, bottom: 4),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 7,
+                    child: Container(
+                      color: Colors.red,
+                      margin: EdgeInsets.only(top: 4, left: 4, bottom: 4),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            entries[index % entries.length],
+                            textAlign: TextAlign.start,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(fontSize: 24),
+                          ),
+                          Row(
                             children: [
-                              const Text(
-                                '\88:88PM - 88:88PM',
-                                textAlign: TextAlign.start,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(fontSize: 16),
-                              ),
+                              Icon(Icons.star, size: 16),
+                              Icon(Icons.star, size: 16),
+                              Icon(Icons.star, size: 16),
+                              Icon(Icons.star_half, size: 16),
+                              Icon(Icons.star_border, size: 16),
                             ],
                           ),
-                        )
-                      ],
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                const Text(
+                                  '\88:88PM - 88:88PM',
+                                  textAlign: TextAlign.start,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: Container(
-                    color: Colors.orange,
-                    child: const Text(
-                      '\$88',
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(fontSize: 44),
+                  Expanded(
+                    flex: 3,
+                    child: Container(
+                      color: Colors.orange,
+                      child: const Text(
+                        '\$88',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 44),
+                      ),
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           );
         });
@@ -105,5 +112,4 @@ class OffersListView extends StatelessWidget {
 // return Container(
 //   height: 80,
 //   color: Colors.amber[colorCodes[index % colorCodes.length]],
-//   child: Center(child: Text(entries[index % entries.length])),
 // );
