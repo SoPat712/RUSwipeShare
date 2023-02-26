@@ -5,7 +5,7 @@
 // ignore_for_file: implementation_imports
 
 import 'dart:convert';
-
+import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_auth/firebase_auth.dart'
     show ActionCodeSettings, FirebaseAuth, FirebaseAuthException, User;
 import 'package:flutter/cupertino.dart' hide Title;
@@ -18,7 +18,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutterfire_ui/auth.dart';
 import 'package:flutterfire_ui/src/auth/widgets/internal/loading_button.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutterfire_ui/src/auth/widgets/internal/universal_button.dart';
 
 import 'package:flutterfire_ui/src/auth/screens/internal/multi_provider_screen.dart';
@@ -27,6 +27,8 @@ import 'package:flutterfire_ui/src/auth/widgets/internal/rebuild_scope.dart';
 import 'package:flutterfire_ui/src/auth/widgets/internal/subtitle.dart';
 import 'package:flutterfire_ui/src/auth/widgets/internal/universal_icon_button.dart';
 import 'package:ruswipeshare/credit_view.dart';
+
+import 'my_webview.dart';
 
 class EditButton extends StatelessWidget {
   final bool isEditing;
@@ -273,8 +275,24 @@ class ProfileScreenCustom extends MultiProviderScreen {
     foregroundColor: MaterialStateProperty.all<Color>(Colors.red),
   ),
   onPressed: () async {
-    
-
+    var Ddata = await http.get(Uri.parse('http://172.20.10.2:5000/setup-seller'));
+    var data = jsonDecode(Ddata.body);
+   String url = data['url'];
+    final uri = Uri.parse(url);
+  
+    await launchUrl(uri);
+final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = auth.currentUser;
+  final uid = user?.uid;
+  String acc = "";
+for(String element in url.split("/")){
+if(element.contains("acc"))
+  acc = element;
+}
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
+  users.add(ASell(acc, uid));
+  
+     /*
   try {
       // 1. create payment intent on the server
    
@@ -307,6 +325,7 @@ class ProfileScreenCustom extends MultiProviderScreen {
     }
 
     await Stripe.instance.presentPaymentSheet();
+    */
 
   },
   child: Text('Setup Seller'),
@@ -360,5 +379,23 @@ class ProfileScreenCustom extends MultiProviderScreen {
       actions: actions ?? const [],
       child: child,
     );
+  }
+}
+
+class ASell implements Comparable<ASell> {
+  String suid = "";
+  String? uid = "";
+  
+
+  ASell(this.suid, String? this.uid, );
+
+  @override
+  String toString() {
+    return "Suid: $suid, uid: $uid";
+  }
+
+  @override
+  int compareTo(ASell other) {
+    return suid.compareTo(other.suid);
   }
 }

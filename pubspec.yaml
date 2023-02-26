@@ -46,6 +46,8 @@ dependencies:
   material_dialogs: any
   google_fonts: ^4.0.3
   http: any
+  webview_flutter: any
+  url_launcher: ^6.1.7
 
 dev_dependencies:
   flutter_test:
