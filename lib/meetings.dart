@@ -40,17 +40,13 @@ Future<List<Seller>> getSellers(Filter filter) async {
 
   final Query query = users
       .where('location', arrayContainsAny: filter.locations)
-      .where('price',
-          isGreaterThanOrEqualTo: filter.price?.low,
-          isLessThanOrEqualTo: filter.price?.high)
-      .where('start-time',
-          isGreaterThanOrEqualTo: filter.meetingTime?.startTime)
+      .where('price', isGreaterThanOrEqualTo: filter.price?.low, isLessThanOrEqualTo: filter.price?.high)
+      .where('start-time', isGreaterThanOrEqualTo: filter.meetingTime?.startTime)
       .where('end-time', isLessThanOrEqualTo: filter.meetingTime?.endTime);
 
   final QuerySnapshot snapshot = await query.get();
   for (var doc in snapshot.docs) {
-    sellers.add(Seller(doc["name"], doc["uid"], doc["location"],
-        TimeRange(doc["start-time"], doc["end-time"]), doc["price"]));
+    sellers.add(Seller(doc["name"], doc["uid"], doc["location"], TimeRange(doc["start-time"], doc["end-time"]), doc["price"]));
   }
   return sellers;
 }
