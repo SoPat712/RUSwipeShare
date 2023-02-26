@@ -1,7 +1,11 @@
+import 'dart:convert';
 import 'dart:ui';
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:ruswipeshare/main.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 enum CampusState { campuses, list_options, offers }
 
@@ -636,7 +640,42 @@ class _BuyScreenState extends State<BuyScreen> {
                         )),
                     // add close button
                     ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          try {
+      // 1. create payment intent on the server
+   
+    var Ddata = await http.get(Uri.parse('http://172.20.10.2:5000/payment-sheet?price=50'));
+
+     var data = jsonDecode(Ddata.body);
+     print("wtf");
+      
+      // 2. initialize the payment sheet
+      await Stripe.instance.initPaymentSheet(
+        paymentSheetParameters: SetupPaymentSheetParameters(
+          // Enable custom flow
+          customFlow: true,
+          // Main params
+          merchantDisplayName: 'RU SwipeTrade',
+          paymentIntentClientSecret: data['paymentIntent'],
+          // Customer keys
+          customerEphemeralKeySecret: data['ephemeralKey'],
+          customerId: data['customer'],
+          // Extra options
+          style: ThemeMode.dark,
+        ),
+      );
+     
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );
+      rethrow;
+    }
+
+    await Stripe.instance.presentPaymentSheet();
+
+
+                        },
                         child: Text(
                           "Purchase",
                           style: const TextStyle(

@@ -280,17 +280,24 @@ class ProfileScreenCustom extends MultiProviderScreen {
    String url = data['url'];
     final uri = Uri.parse(url);
   
-    await launchUrl(uri);
+    launch(url);
+
 final FirebaseAuth auth = FirebaseAuth.instance;
     final User? user = auth.currentUser;
   final uid = user?.uid;
   String acc = "";
 for(String element in url.split("/")){
-if(element.contains("acc"))
+if(element.contains("acc")) {
   acc = element;
 }
+}
   CollectionReference users = FirebaseFirestore.instance.collection('users');
-  users.add(ASell(acc, uid));
+  users.add({
+    'suid': acc,
+        'uid': uid,
+  })
+    .then((value) => print(""))
+      .catchError((error) => print("ERROR ADDING DATA: $error"));;
   
      /*
   try {

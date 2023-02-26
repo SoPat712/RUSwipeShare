@@ -51,6 +51,7 @@ dependencies:
   webview_flutter: any
   url_launcher: ^6.1.7
   flutter_datetime_picker: ^1.5.1
+  flutter_email_sender: ^5.0.2
 
 dev_dependencies:
   flutter_test:

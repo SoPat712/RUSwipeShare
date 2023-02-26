@@ -62,20 +62,7 @@ class AuthGate extends StatelessWidget {
           );
         }
 
-        User? user = auth.currentUser;
-
-        if (user != null) {
-          bool isNewUser =
-              user.metadata.creationTime == user.metadata.lastSignInTime;
-
-          if (isNewUser) {
-            final name = user.displayName;
-            final uid = user.uid;
-
-            addUser("TOAA", uid);
-          }
-        }
-
+       
         return const HomeScreen();
       },
     );
