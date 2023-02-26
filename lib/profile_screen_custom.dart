@@ -8,6 +8,8 @@ import 'package:firebase_auth/firebase_auth.dart' show ActionCodeSettings, Fireb
 import 'package:flutter/cupertino.dart' hide Title;
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' hide Title;
+import 'package:flutter/material.dart';
+import 'package:flutter_credit_card/credit_card_brand.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:flutterfire_ui/src/auth/widgets/internal/loading_button.dart';
@@ -19,6 +21,7 @@ import 'package:flutterfire_ui/src/auth/screens/internal/multi_provider_screen.d
 import 'package:flutterfire_ui/src/auth/widgets/internal/rebuild_scope.dart';
 import 'package:flutterfire_ui/src/auth/widgets/internal/subtitle.dart';
 import 'package:flutterfire_ui/src/auth/widgets/internal/universal_icon_button.dart';
+import 'package:ruswipeshare/credit_view.dart';
 
 class EditButton extends StatelessWidget {
   final bool isEditing;
@@ -250,6 +253,13 @@ class ProfileScreenCustom extends MultiProviderScreen {
         ],
         ...children,
         const SizedBox(height: 300),
+        TextButton(
+  style: ButtonStyle(
+    foregroundColor: MaterialStateProperty.all<Color>(Colors.red),
+  ),
+  onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context)=> CreditView())); },
+  child: Text('Setup Seller'),
+),
         Align(
           alignment: Alignment.bottomCenter,
           child: SignOutButton(

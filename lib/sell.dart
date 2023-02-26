@@ -33,10 +33,6 @@ class _SellScreenState extends State<SellScreen> {
   Widget build(BuildContext context) {
     bool is24HoursFormat = MediaQuery.of(context).alwaysUse24HourFormat;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Sell'),
-        automaticallyImplyLeading: false,
-      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
