@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutterfire_ui/auth.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:ruswipeshare/sell.dart';
 import 'profile_screen_custom.dart';

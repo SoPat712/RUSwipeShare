@@ -2,10 +2,13 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+// ignore_for_file: implementation_imports
+
 import 'package:firebase_auth/firebase_auth.dart' show ActionCodeSettings, FirebaseAuth, FirebaseAuthException, User;
 import 'package:flutter/cupertino.dart' hide Title;
-import 'package:flutterfire_ui/i10n.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' hide Title;
+import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:flutterfire_ui/src/auth/widgets/internal/loading_button.dart';
 
@@ -111,10 +114,13 @@ class _EmailVerificationBadgeState extends State<EmailVerificationBadge> {
           if (state == EmailVerificationState.pending)
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                LoadingIndicator(size: 16, borderWidth: 0.5),
-                SizedBox(width: 16),
-                Text('Waiting for email verification'),
+              children: [
+                const SizedBox(width: 16),
+                Wrap(
+                  children: const [
+                    Text('Log out and log back in to confirm.'),
+                  ],
+                ),
               ],
             )
           else
@@ -216,12 +222,12 @@ class ProfileScreenCustom extends MultiProviderScreen {
     final user = auth.currentUser!;
 
     final content = Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Align(
           child: UserAvatar(
             auth: auth,
-            placeholderColor: avatarPlaceholderColor,
+            placeholderColor: Theme.of(context).colorScheme.primary,
             shape: avatarShape,
             size: avatarSize,
           ),
@@ -243,10 +249,13 @@ class ProfileScreenCustom extends MultiProviderScreen {
           ),
         ],
         ...children,
-        const SizedBox(height: 16),
-        SignOutButton(
-          auth: auth,
-          variant: ButtonVariant.outlined,
+        const SizedBox(height: 300),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: SignOutButton(
+            auth: auth,
+            variant: ButtonVariant.filled,
+          ),
         ),
         const SizedBox(height: 8),
       ],
@@ -257,8 +266,7 @@ class ProfileScreenCustom extends MultiProviderScreen {
         child: LayoutBuilder(
           builder: (context, constraints) {
             if (constraints.maxWidth > 500) {
-              return ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 500),
+              return Expanded(
                 child: content,
               );
             } else {
