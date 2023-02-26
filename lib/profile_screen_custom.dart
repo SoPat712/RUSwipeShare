@@ -225,7 +225,7 @@ class ProfileScreenCustom extends MultiProviderScreen {
         Align(
           child: UserAvatar(
             auth: auth,
-            placeholderColor: avatarPlaceholderColor,
+            placeholderColor: Theme.of(context).colorScheme.primary,
             shape: avatarShape,
             size: avatarSize,
           ),
