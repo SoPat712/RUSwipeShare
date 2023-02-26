@@ -1,3 +1,10 @@
+# RU SwipeShare
+![SwipeShare](https://slwordpress.rutgers.edu/dining/wp-content/uploads/sites/138/2017/06/swipe.png)
+
+## Devpost
+### https://devpost.com/software/ru-swipeshare?ref_content=my-projects-tab&ref_feature=my_projects
+
+
 ## Inspiration
 As a group of college students, we have all experienced the frustration of having unused meal swipes that go to waste. Not only is it a financial loss, but it also contributes to the larger issue of food waste on campus. We wanted to create a solution that would allow students to exchange their unused meal swipes with each other, reduce food waste, and create a sense of community on campus. This idea inspired us to build RU SwipeShare, a mobile application for Rutgers students to exchange unused meal swipes.
 
