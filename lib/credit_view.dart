@@ -18,7 +18,7 @@ class CreditViewState extends State<CreditView> {
   String cardHolderName = '';
   String cvvCode = '';
   bool isCvvFocused = false;
-  bool useGlassMorphism = false;
+  bool useGlassMorphism = true;
   bool useBackgroundImage = false;
   OutlineInputBorder? border;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -46,10 +46,6 @@ class CreditViewState extends State<CreditView> {
         resizeToAvoidBottomInset: false,
         body: Container(
           decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: ExactAssetImage('assets/bg.png'),
-              fit: BoxFit.fill,
-            ),
             color: Colors.black,
           ),
           child: SafeArea(
@@ -59,27 +55,21 @@ class CreditViewState extends State<CreditView> {
                   height: 30,
                 ),
                 CreditCardWidget(
-                  glassmorphismConfig:
-                      useGlassMorphism ? Glassmorphism.defaultConfig() : null,
+                  glassmorphismConfig: useGlassMorphism ? Glassmorphism.defaultConfig() : null,
                   cardNumber: cardNumber,
                   expiryDate: expiryDate,
                   cardHolderName: cardHolderName,
                   cvvCode: cvvCode,
                   bankName: 'Axis Bank',
-                  frontCardBorder:
-                      !useGlassMorphism ? Border.all(color: Colors.grey) : null,
-                  backCardBorder:
-                      !useGlassMorphism ? Border.all(color: Colors.grey) : null,
+                  frontCardBorder: !useGlassMorphism ? Border.all(color: Colors.grey) : null,
+                  backCardBorder: !useGlassMorphism ? Border.all(color: Colors.grey) : null,
                   showBackView: isCvvFocused,
                   obscureCardNumber: true,
                   obscureCardCvv: true,
                   isHolderNameVisible: true,
-            
-                  backgroundImage:
-                      useBackgroundImage ? 'assets/card_bg.png' : null,
+                  backgroundImage: useBackgroundImage ? 'assets/card_bg.png' : null,
                   isSwipeGestureEnabled: true,
-                  onCreditCardWidgetChange:
-                      (CreditCardBrand creditCardBrand) {},
+                  onCreditCardWidgetChange: (CreditCardBrand creditCardBrand) {},
                   customCardTypeIcons: <CustomCardTypeIcon>[
                     CustomCardTypeIcon(
                       cardType: CardType.mastercard,
@@ -144,65 +134,10 @@ class CreditViewState extends State<CreditView> {
                         const SizedBox(
                           height: 20,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              const Text(
-                                'Glassmorphism',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                ),
-                              ),
-                              const Spacer(),
-                              Switch(
-                                value: useGlassMorphism,
-                                inactiveTrackColor: Colors.grey,
-                                activeColor: Colors.white,
-                         
-                                onChanged: (bool value) => setState(() {
-                                  useGlassMorphism = value;
-                                }),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              const Text(
-                                'Card Image',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                ),
-                              ),
-                              const Spacer(),
-                              Switch(
-                                value: useBackgroundImage,
-                                inactiveTrackColor: Colors.grey,
-                                activeColor: Colors.white,
-                           
-                                onChanged: (bool value) => setState(() {
-                                  useBackgroundImage = value;
-                                }),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
                         GestureDetector(
                           onTap: _onValidate,
                           child: Container(
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 8),
-                            
+                            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                             padding: const EdgeInsets.symmetric(vertical: 15),
                             width: double.infinity,
                             alignment: Alignment.center,
@@ -217,14 +152,13 @@ class CreditViewState extends State<CreditView> {
                             ),
                           ),
                         ),
-                        OutlinedButton(
-  style: ButtonStyle(
-   
-    foregroundColor: MaterialStateProperty.all<Color>(Colors.red),
-  ),
-  onPressed: () { },
-  child: Text('Complete Setup'),
-),
+                        ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                          ),
+                          onPressed: () {},
+                          child: Text('Complete Setup'),
+                        ),
                       ],
                     ),
                   ),
@@ -234,7 +168,6 @@ class CreditViewState extends State<CreditView> {
           ),
         ),
       ),
-      
     );
   }
 
