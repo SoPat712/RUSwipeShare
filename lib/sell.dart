@@ -3,7 +3,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:ruswipeshare/auth_gate.dart';
 import 'package:ruswipeshare/meetings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -47,15 +46,30 @@ class _SellScreenState extends State<SellScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Icon(Icons.store_mall_directory, color: Colors.red),
-                Text('Place'),
+              children: [
+                Expanded(
+                    child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.store_mall_directory,
+                      color: Colors.red,
+                      size: 40,
+                    ),
+                    Text(
+                      'Place',
+                      style: TextStyle(
+                        fontSize: 30,
+                      ),
+                    ),
+                  ],
+                ))
               ],
             ),
             ConstrainedBox(
               constraints: const BoxConstraints.expand(height: 250),
               child: ListView.builder(
+                physics: BouncingScrollPhysics(),
                 itemCount: values.length,
                 itemBuilder: (context, index) => CheckboxListTile(
                   title: Text(values.keys.elementAt(index)),
