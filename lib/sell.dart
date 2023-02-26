@@ -46,18 +46,32 @@ class _SellScreenState extends State<SellScreen> {
       resizeToAvoidBottomInset: true,
       body: Padding(
         padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-        child:
-            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+        child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(Icons.store_mall_directory, color: Colors.red),
-              Text('Place'),
+            children: [
+              Expanded(
+                  child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.store_mall_directory,
+                    color: Colors.red,
+                    size: 40,
+                  ),
+                  Text(
+                    'Place',
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                  ),
+                ],
+              ))
             ],
           ),
           ConstrainedBox(
             constraints: const BoxConstraints.expand(height: 250),
             child: ListView.builder(
+              physics: BouncingScrollPhysics(),
               itemCount: values.length,
               itemBuilder: (context, index) => CheckboxListTile(
                 title: Text(values.keys.elementAt(index)),
@@ -102,9 +116,7 @@ class _SellScreenState extends State<SellScreen> {
             children: [
               ElevatedButton(
                 onPressed: () async {
-                  DatePicker.showDateTimePicker(context,
-                      showTitleActions: true,
-                      minTime: DateTime.now(), onChanged: (date) {
+                  DatePicker.showDateTimePicker(context, showTitleActions: true, minTime: DateTime.now(), onChanged: (date) {
                     print('change $date');
                   }, onConfirm: (date) {
                     setState(() {
@@ -128,9 +140,7 @@ class _SellScreenState extends State<SellScreen> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  DatePicker.showDateTimePicker(context,
-                      showTitleActions: true,
-                      minTime: DateTime.now(), onChanged: (date) {
+                  DatePicker.showDateTimePicker(context, showTitleActions: true, minTime: DateTime.now(), onChanged: (date) {
                     print('change $date');
                   }, onConfirm: (date) {
                     setState(() {
@@ -183,19 +193,12 @@ class _SellScreenState extends State<SellScreen> {
                 if (value == true) locations.add(key);
               });
               if (user != null) {
-                Seller seller = Seller(
-                    user.displayName,
-                    user.uid,
-                    locations,
-                    TimeRange(Timestamp.fromDate(startTimeTime),
-                        Timestamp.fromDate(endTimeTime)),
-                    double.parse(priceController.text));
+                Seller seller = Seller(user.displayName, user.uid, locations, TimeRange(Timestamp.fromDate(startTimeTime), Timestamp.fromDate(endTimeTime)), double.parse(priceController.text));
                 addSeller(seller);
               }
             },
             style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateColor.resolveWith((states) => Colors.blue),
+              backgroundColor: MaterialStateColor.resolveWith((states) => Colors.blue),
             ),
             child: const Text('Submit Sell Request'),
           ),

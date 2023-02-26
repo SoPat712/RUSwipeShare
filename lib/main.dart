@@ -10,8 +10,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Stripe.publishableKey = "pk_test_51MfY7PFVdcWv896FKvDhgKabYeDq4AnoFcWxCAg4hquj6TBAsN0kznXPVyKA7M1pMq5PsieGQwsx6QY5ld5ZQzJ500rVCMPPXp";
-  
-runApp(const MyApp());
+
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -20,23 +20,58 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          primarySwatch: CustomMaterialColor(205, 0, 48).mdColor,
-          scaffoldBackgroundColor: Colors.black87,
-          fontFamily: GoogleFonts.figtree().fontFamily,
-          textTheme: Theme.of(context).textTheme.apply(
-                bodyColor: CustomMaterialColor(240, 240, 240).mdColor,
-                displayColor: CustomMaterialColor(240, 240, 240).mdColor,
+        inputDecorationTheme: InputDecorationTheme(
+          fillColor: Color.fromARGB(255, 40, 40, 40),
+          filled: true,
+          outlineBorder: BorderSide(
+            color: Colors.white,
+          ),
+          labelStyle: TextStyle(
+            color: Color.fromARGB(255, 205, 0, 48),
+          ),
+          focusColor: Colors.white,
+          hintStyle: TextStyle(
+            color: Color.fromARGB(255, 205, 0, 48),
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+        textSelectionTheme: TextSelectionThemeData(),
+        fixTextFieldOutlineLabel: true,
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: ButtonStyle(
+            padding: MaterialStateProperty.all<EdgeInsets>(
+              const EdgeInsets.all(24),
+            ),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
               ),
-          textButtonTheme: TextButtonThemeData(
-              style: ButtonStyle(
-                  textStyle: MaterialStatePropertyAll(TextStyle(
-                      color: CustomMaterialColor(240, 240, 240).mdColor))))),
+            ),
+            backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 205, 0, 48)),
+            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+          ),
+        ),
+        primarySwatch: CustomMaterialColor(205, 0, 48).mdColor,
+        scaffoldBackgroundColor: Colors.black87,
+        fontFamily: GoogleFonts.figtree().fontFamily,
+        textTheme: Theme.of(context).textTheme.apply(
+              bodyColor: CustomMaterialColor(240, 240, 240).mdColor,
+              displayColor: CustomMaterialColor(240, 240, 240).mdColor,
+            ),
+        textButtonTheme: TextButtonThemeData(style: ButtonStyle(textStyle: MaterialStatePropertyAll(TextStyle(color: CustomMaterialColor(240, 240, 240).mdColor)))),
+        checkboxTheme: CheckboxThemeData(
+          fillColor: MaterialStatePropertyAll(CustomMaterialColor(240, 240, 240).mdColor),
+          checkColor: MaterialStatePropertyAll(Colors.black),
+        ),
+      ),
       home: const AuthGate(),
     );
   }
 }
 
- class CustomMaterialColor {
+class CustomMaterialColor {
   final int r;
   final int g;
   final int b;
