@@ -13,7 +13,16 @@ class _BuyScreenState extends State<BuyScreen> {
   Widget build(BuildContext context) {
     TimeOfDay _time = TimeOfDay.now();
     return Scaffold(
-      body: const OffersListView(),
+      body: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            child: ElevatedButton(
+                onPressed: () {}, child: Text("Choose A Different Location")),
+          ),
+          const Expanded(child: CampusGridView()),
+        ],
+      ),
     );
   }
 }
@@ -39,6 +48,7 @@ class OffersListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
         itemCount: 30,
+        padding: EdgeInsets.zero,
         itemBuilder: (BuildContext context, int index) {
           return InkWell(
             onTap: () {
@@ -48,7 +58,7 @@ class OffersListView extends StatelessWidget {
             child: Container(
               height: 80,
               color: Colors.blue,
-              margin: const EdgeInsets.only(top: 4, bottom: 4),
+              margin: const EdgeInsets.only(bottom: 4),
               child: Row(
                 children: [
                   Expanded(
@@ -109,7 +119,112 @@ class OffersListView extends StatelessWidget {
         });
   }
 }
-// return Container(
-//   height: 80,
-//   color: Colors.amber[colorCodes[index % colorCodes.length]],
-// );
+
+class CampusGridView extends StatelessWidget {
+  const CampusGridView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: GridView.count(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        crossAxisCount: 2,
+        crossAxisSpacing: 15,
+        childAspectRatio: 1,
+        mainAxisSpacing: 15,
+        padding: EdgeInsets.all(10),
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(25)),
+            child: Column(
+              children: [
+                Expanded(
+                  child: Image.asset(
+                    'assets/ca_bg.jpg',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(8),
+                  color: Colors.red,
+                  child: Text(
+                    "College Avenue",
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(25)),
+            child: Column(
+              children: [
+                Expanded(
+                  child: Image.asset(
+                    'assets/busch_bg.jpg',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(8),
+                  color: Colors.green,
+                  child: Text(
+                    "Busch",
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(25)),
+            child: Column(
+              children: [
+                Expanded(
+                  child: Image.asset(
+                    'assets/livi_bg.jpg',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(8),
+                  color: Colors.blue,
+                  child: Text(
+                    "Livingston",
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(25)),
+            child: Column(
+              children: [
+                Expanded(
+                  child: Image.asset(
+                    'assets/cd_bg.jpg',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(8),
+                  color: Colors.yellow,
+                  child: Text(
+                    "Cook-Douglass",
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
