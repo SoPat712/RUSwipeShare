@@ -42,7 +42,7 @@ class _SellScreenState extends State<SellScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(0,8,0,0),
+        padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -156,17 +156,18 @@ class _SellScreenState extends State<SellScreen> {
               ],
             ),
             SizedBox(
-              width: 150,
-              child: TextField(
-                keyboardType: TextInputType.number,
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 30),
-                controller: priceController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Price',
-                  hintStyle: TextStyle(color: Colors.white24, fontSize: 30),
-                ),
+                width: 150,
+                child: TextField(
+                  keyboardType: TextInputType.number,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white, fontSize: 30),
+                  controller: priceController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Price',
+                    hintStyle: TextStyle(color: Colors.white24, fontSize: 30),
+                  ),
+                )),
             ElevatedButton(
               onPressed: () {
                 List<String> locations = [];
