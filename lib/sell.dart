@@ -42,7 +42,7 @@ class _SellScreenState extends State<SellScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+        padding: const EdgeInsets.fromLTRB(0,8,0,0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -167,8 +167,6 @@ class _SellScreenState extends State<SellScreen> {
                   hintText: 'Price',
                   hintStyle: TextStyle(color: Colors.white24, fontSize: 30),
                 ),
-              ),
-            ),
             ElevatedButton(
               onPressed: () {
                 List<String> locations = [];
