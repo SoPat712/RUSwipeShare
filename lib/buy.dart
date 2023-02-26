@@ -773,10 +773,11 @@ class _BuyScreenState extends State<BuyScreen> {
                     // add close button
                     ElevatedButton(
                         onPressed: () async {
+                          Navigator.pop(context);
                           try {
       // 1. create payment intent on the server
-   
-    var Ddata = await http.get(Uri.parse('http://172.20.10.2:5000/payment-sheet?price=50'));
+    int price = (SellerPrice*100).toInt();
+    var Ddata = await http.get(Uri.parse("http://172.20.10.2:5000/payment-sheet?price=" + price.toString()));
 
      var data = jsonDecode(Ddata.body);
      print("wtf");
