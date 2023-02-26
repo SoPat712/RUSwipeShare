@@ -19,6 +19,8 @@ class SellScreen extends StatefulWidget {
 }
 
 Map<String, bool> values = {
+  'Busch Dining Hall': false,
+  'Woody\'s Cafe': false,
   'Brower Dining Hall': false,
   'Cafe West': false,
   'Livingston Dining Hall': false,
@@ -47,7 +49,10 @@ class _SellScreenState extends State<SellScreen> {
     return Scaffold(
       body: Column(children: [
         Container(
-          padding: EdgeInsets.only(top: 10, left: 10),
+          padding: EdgeInsets.only(
+            top: 35,
+            left: 10,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -111,29 +116,29 @@ class _SellScreenState extends State<SellScreen> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           InkWell(
-                            onTap: () {
-                              DatePicker.showDateTimePicker(context,
-                                  showTitleActions: true,
-                                  minTime: DateTime.now(),
-                                  onChanged: (date) {}, onConfirm: (date) {
+                            onTap: () async {
+                              final TimeOfDay? picked = await showTimePicker(
+                                context: context,
+                                initialTime: TimeOfDay.fromDateTime(startTimeTime),
+                              );
+                              if (picked != null) {
                                 setState(() {
-                                  endTimeTime = date;
-                                  endTime = dateFormat.format(date);
+                                  startTimeTime = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, picked.hour, picked.minute);
+                                  startTime = "${startTimeTime.hour}:${startTimeTime.minute}${(is24HoursFormat) ? "" : ((startTimeTime.hour > 12) ? "PM" : "AM")}";
                                 });
-                              },
-                                  currentTime: DateTime.now(),
-                                  locale: LocaleType.en);
+                              }
+                              // DatePicker.showDateTimePicker(context, showTitleActions: true, minTime: DateTime.now(), onChanged: (date) {}, onConfirm: (date) {
+                              //   setState(() {
+                              //     startTimeTime = date;
+                              //     startTime = dateFormat.format(date);
+                              //   });
+                              // }, currentTime: DateTime.now(), locale: LocaleType.en);
                             },
                             child: Container(
                               padding: EdgeInsets.all(4),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  border: Border.all(
-                                      width: 2,
-                                      color: CustomMaterialColor(240, 240, 240)
-                                          .mdColor)),
+                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), border: Border.all(width: 2, color: CustomMaterialColor(240, 240, 240).mdColor)),
                               child: Text(
-                                endTime,
+                                startTime,
                                 style: TextStyle(
                                   fontSize: 24,
                                 ),
@@ -145,29 +150,34 @@ class _SellScreenState extends State<SellScreen> {
                             style: TextStyle(fontSize: 20),
                           ),
                           InkWell(
-                            onTap: () {
-                              DatePicker.showDateTimePicker(context,
-                                  showTitleActions: true,
-                                  minTime: DateTime.now(),
-                                  onChanged: (date) {}, onConfirm: (date) {
+                            onTap: () async {
+                              final TimeOfDay? picked = await showTimePicker(
+                                context: context,
+                                initialTime: TimeOfDay.fromDateTime(endTimeTime),
+                              );
+                              if (picked != null) {
                                 setState(() {
-                                  startTimeTime = date;
-                                  startTime = dateFormat.format(date);
+                                  endTimeTime = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, picked.hour, picked.minute);
+                                  endTime = endTimeTime.hour.toString() + ":" + endTimeTime.minute.toString() + ((is24HoursFormat) ? "" : ((endTimeTime.hour > 12) ? "PM" : "AM"));
                                 });
-                              },
-                                  currentTime: DateTime.now(),
-                                  locale: LocaleType.en);
+                              }
+                              // DatePicker.showDateTimePicker(context,
+                              //     showTitleActions: true,
+                              //     minTime: DateTime.now(),
+                              //     onChanged: (date) {}, onConfirm: (date) {
+                              //   setState(() {
+                              //     endTimeTime = date;
+                              //     endTime = dateFormat.format(date);
+                              //   });
+                              // },
+                              //     currentTime: DateTime.now(),
+                              //     locale: LocaleType.en);
                             },
                             child: Container(
                               padding: EdgeInsets.all(4),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  border: Border.all(
-                                      width: 2,
-                                      color: CustomMaterialColor(240, 240, 240)
-                                          .mdColor)),
+                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), border: Border.all(width: 2, color: CustomMaterialColor(240, 240, 240).mdColor)),
                               child: Text(
-                                startTime,
+                                endTime,
                                 style: TextStyle(
                                   fontSize: 24,
                                 ),
@@ -192,7 +202,7 @@ class _SellScreenState extends State<SellScreen> {
                 size: 40,
               ),
               const Text(
-                'Money',
+                'Cost',
                 style: TextStyle(
                   fontSize: 30,
                 ),
@@ -207,25 +217,18 @@ class _SellScreenState extends State<SellScreen> {
                       children: [
                         Container(
                           padding: EdgeInsets.all(4),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
-                              border: Border.all(
-                                  width: 2,
-                                  color: CustomMaterialColor(240, 240, 240)
-                                      .mdColor)),
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), border: Border.all(width: 2, color: CustomMaterialColor(240, 240, 240).mdColor)),
                           child: SizedBox(
                             width: 150,
                             child: TextField(
                               keyboardType: TextInputType.number,
                               textAlign: TextAlign.center,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 24),
+                              style: TextStyle(color: Colors.white, fontSize: 24),
                               controller: priceController,
                               decoration: InputDecoration(
                                 contentPadding: EdgeInsets.zero,
                                 hintText: 'Price',
-                                hintStyle: TextStyle(
-                                    color: Colors.white24, fontSize: 24),
+                                hintStyle: TextStyle(color: Colors.white24, fontSize: 24),
                               ),
                             ),
                           ),
@@ -249,13 +252,7 @@ class _SellScreenState extends State<SellScreen> {
                     if (value == true) locations.add(key);
                   });
                   if (user != null) {
-                    Seller seller = Seller(
-                        user.displayName,
-                        user.uid,
-                        locations,
-                        TimeRange(Timestamp.fromDate(startTimeTime),
-                            Timestamp.fromDate(endTimeTime)),
-                        double.parse(priceController.text));
+                    Seller seller = Seller(user.displayName, user.uid, locations, TimeRange(Timestamp.fromDate(startTimeTime), Timestamp.fromDate(endTimeTime)), double.parse(priceController.text));
                     addSeller(seller);
                   }
                 },

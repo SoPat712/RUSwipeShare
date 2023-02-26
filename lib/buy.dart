@@ -24,6 +24,42 @@ final List<String> entries = <String>[
   'Pearl Morse',
   'Jana Munguia'
 ];
+final List<double> prices = <double>[
+  1.00,
+  2.00,
+  3.00,
+  4.00,
+  5.00,
+  6.00,
+  7.00,
+  8.00,
+  9.00,
+  10.00,
+];
+final List<DateTime> startTime = <DateTime>[
+  DateTime.now(),
+  DateTime.now(),
+  DateTime.now(),
+  DateTime.now(),
+  DateTime.now(),
+  DateTime.now(),
+  DateTime.now(),
+  DateTime.now(),
+  DateTime.now(),
+  DateTime.now(),
+];
+final List<DateTime> endTime = <DateTime>[
+  DateTime.now(),
+  DateTime.now(),
+  DateTime.now(),
+  DateTime.now(),
+  DateTime.now(),
+  DateTime.now(),
+  DateTime.now(),
+  DateTime.now(),
+  DateTime.now(),
+  DateTime.now(),
+];
 final Map<String, String> nameToAsset = {
   'Brower Dining Hall': 'brower.jpg',
   'Cafe West': 'cafe_west.jpg',
@@ -38,6 +74,20 @@ final Map<String, String> nameToAsset = {
   'Harvest INFH': 'harvest.jpg',
   'Red Pine Pizza': 'red_pine.jpg'
 };
+
+Future<int> numberOfSellersAtDiningLocation(String diningLocation) async {
+  var sellers = await getSellers(Filter([diningLocation], null, null));
+  return sellers.length;
+}
+
+Future<List<int>> numberOfSellersAtEachDiningLocation() async {
+  List<int> numSellers = [];
+  for (var diningLocation in entries) {
+    numSellers.add(await numberOfSellersAtDiningLocation(diningLocation));
+  }
+  return numSellers;
+}
+
 final List<List<String>> eatingLocations = [
   <String>['Brower Dining Hall', 'Cafe West'],
   <String>['Busch Dining Hall', 'Woody\'s Cafe'],
@@ -46,20 +96,10 @@ final List<List<String>> eatingLocations = [
     'Kilmer\'s Market',
     'Sbarro\'s',
   ],
-  <String>[
-    'Neilson Dining Hall',
-    'Cook Cafe',
-    'Douglass Cafe',
-    'Harvest INFH',
-    'Red Pine Pizza'
-  ]
+  <String>['Neilson Dining Hall', 'Cook Cafe', 'Douglass Cafe', 'Harvest INFH', 'Red Pine Pizza']
 ];
 final List<int> colorCodes = <int>[600, 500, 100];
-final List<String> timeBgAssets = <String>[
-  'assets/daytime_swipe.jpg',
-  'assets/afternoon_swipe.jpg',
-  'assets/nighttime_swipe.jpg'
-];
+final List<String> timeBgAssets = <String>['assets/daytime_swipe.jpg', 'assets/afternoon_swipe.jpg', 'assets/nighttime_swipe.jpg'];
 
 class BuyScreen extends StatefulWidget {
   const BuyScreen({Key? key}) : super(key: key);
@@ -69,6 +109,8 @@ class BuyScreen extends StatefulWidget {
 }
 
 class _BuyScreenState extends State<BuyScreen> {
+  DateFormat dateFormat = DateFormat("HH:mm aa");
+
   CampusState _currentState = CampusState.campuses;
   List<String> _diningOptions = List.empty();
   List<Seller> _sellersAtDiningHall = [];
@@ -83,7 +125,7 @@ class _BuyScreenState extends State<BuyScreen> {
             children: [
               Row(children: [
                 Container(
-                  padding: EdgeInsets.only(left: 10, top: 20),
+                  padding: EdgeInsets.only(left: 10, top: 35),
                   child: Text(
                     "Campuses",
                     style: TextStyle(
@@ -111,8 +153,7 @@ class _BuyScreenState extends State<BuyScreen> {
                         });
                       },
                       child: ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(25)),
+                        borderRadius: const BorderRadius.all(Radius.circular(25)),
                         child: Column(
                           children: [
                             Expanded(
@@ -142,8 +183,7 @@ class _BuyScreenState extends State<BuyScreen> {
                         });
                       },
                       child: ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(25)),
+                        borderRadius: const BorderRadius.all(Radius.circular(25)),
                         child: Column(
                           children: [
                             Expanded(
@@ -173,8 +213,7 @@ class _BuyScreenState extends State<BuyScreen> {
                         });
                       },
                       child: ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(25)),
+                        borderRadius: const BorderRadius.all(Radius.circular(25)),
                         child: Column(
                           children: [
                             Expanded(
@@ -204,8 +243,7 @@ class _BuyScreenState extends State<BuyScreen> {
                         });
                       },
                       child: ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(25)),
+                        borderRadius: const BorderRadius.all(Radius.circular(25)),
                         child: Column(
                           children: [
                             Expanded(
@@ -237,7 +275,7 @@ class _BuyScreenState extends State<BuyScreen> {
         return Scaffold(
           body: Column(children: [
             Container(
-              padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+              padding: EdgeInsets.fromLTRB(0, 35, 0, 0),
               width: double.infinity,
               child: ElevatedButton(
                   onPressed: () {
@@ -266,12 +304,7 @@ class _BuyScreenState extends State<BuyScreen> {
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       margin: const EdgeInsets.fromLTRB(4, 4, 4, 8),
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              color: CustomMaterialColor(240, 240, 240).mdColor,
-                              width: 2),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10))),
+                      decoration: BoxDecoration(border: Border.all(color: CustomMaterialColor(240, 240, 240).mdColor, width: 2), borderRadius: const BorderRadius.all(Radius.circular(10))),
                       child: InkWell(
                         onTap: () {
                           setState(() {
@@ -280,24 +313,20 @@ class _BuyScreenState extends State<BuyScreen> {
                           });
                         },
                         child: ClipRRect(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10)),
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
                           child: Container(
                             height: 120,
                             decoration: BoxDecoration(
                                 image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: AssetImage("assets/" +
-                                  nameToAsset[
-                                      _diningOptions.elementAt(index)]!),
+                              image: AssetImage("assets/" + nameToAsset[_diningOptions.elementAt(index)]!),
                             )),
                             child: BackdropFilter(
                               filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
                               child: Container(
                                 padding: const EdgeInsets.only(right: 40),
                                 alignment: Alignment.bottomRight,
-                                margin: const EdgeInsets.only(
-                                    top: 4, left: 20, bottom: 4),
+                                margin: const EdgeInsets.only(top: 4, left: 20, bottom: 4),
                                 child: Text(
                                   _diningOptions[index],
                                   overflow: TextOverflow.ellipsis,
@@ -318,179 +347,196 @@ class _BuyScreenState extends State<BuyScreen> {
           body: Column(
             children: [
               Padding(
-                padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Flexible(
-                        flex: 8,
-                        fit: FlexFit.tight,
-                        child: ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                _currentState = CampusState.campuses;
-                              });
-                            },
-                            child: const Text("Choose A Different Location")),
-                      ),
-                      Flexible(
-                          flex: 2,
-                          child: ElevatedButton(
-                              onPressed: () {},
-                              child: const Icon(Icons.filter_list)))
-                    ]),
+                padding: EdgeInsets.fromLTRB(0, 35, 0, 0),
+                child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                  Flexible(
+                    flex: 8,
+                    fit: FlexFit.tight,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            _currentState = CampusState.campuses;
+                          });
+                        },
+                        child: const Text("Choose A Different Location")),
+                  ),
+                  Flexible(flex: 2, child: ElevatedButton(onPressed: () {}, child: const Icon(Icons.filter_list)))
+                ]),
               ),
-              Row(children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
                 Container(
                   padding: EdgeInsets.only(left: 10, bottom: 10),
                   child: Text(
-                    "Available Swipes",
+                    _selectedLocation,
                     style: TextStyle(
                       fontSize: 30,
                     ),
                   ),
+                ),
+                Container(
+                  padding: EdgeInsets.only(left: 10, bottom: 10),
+                  child: Text(
+                    "Time: "+dateFormat.format(DateTime.now()),
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
                 )
+
               ]),
               Expanded(
                 child: ListView.builder(
                     physics: const BouncingScrollPhysics(),
-                    itemCount: 30,
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                     itemBuilder: (BuildContext context, int index) {
-                      List<Seller> sellers = [];
-                      var loc = _diningOptions[index % _diningOptions.length];
-
+                      var loc = _diningOptions[index];
                       return FutureBuilder<List<Seller>>(
                         future: getSellers(Filter([loc], null, null)),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<List<Seller>> snapshot) {
+                        builder: (BuildContext context, AsyncSnapshot<List<Seller>> snapshot) {
                           if (snapshot.hasData) {
                             final data = snapshot.data ?? [];
-                            String startTimeFmt = DateFormat("h:mm a").format(
-                                data[index % data.length]
-                                    .availableTime
-                                    .startTime
-                                    .toDate());
+                            String startTimeFmt = DateFormat("h:mm a").format(data[index].availableTime.startTime.toDate());
 
-                            String endTimeFmt = DateFormat("h:mm a").format(
-                                data[index % data.length]
-                                    .availableTime
-                                    .endTime
-                                    .toDate());
+                            String? sellerName = data[index].name;
 
-                            final price = data[index % data.length].price;
+                            String endTimeFmt = DateFormat("h:mm a").format(data[index].availableTime.endTime.toDate());
+
+                            final price = data[index].price;
 
                             return InkWell(
                               onTap: () {
-                                showSheet(context, index);
+                                showSheet(context, index, sellerName, price, data[index].availableTime.startTime.toDate(), data[index % data.length].availableTime.endTime.toDate(),
+                                    _selectedLocation);
+                                // showDialog(
+                                //     context: context,
+                                //     builder: (BuildContext context) => Dialog(
+                                //         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                                //         shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
+                                //         child: Padding(
+                                //           padding: const EdgeInsets.all(8.0),
+                                //           child: Column(
+                                //             mainAxisSize: MainAxisSize.min,
+                                //             mainAxisAlignment: MainAxisAlignment.center,
+                                //             children: <Widget>[
+                                //               const Text('Transaction Details'),
+                                //               const SizedBox(height: 15),
+                                //               TextButton(
+                                //                 onPreslectedd: () {
+                                //                   Navigator.pop(context);
+                                //                 },
+                                //                 child: const Text('Close'),
+                                //               ),
+                                //             ],
+                                //           ),
+                                //         )));
+                                // // Dialogs.materialDialog(
+                                // //   color: Theme.of(context).scaffoldBackgroundColor,
+                                // //   customView: const TransactionDetails(),
+                                // //   customViewPosition:
+                                // //       CustomViewPosition.BEFORE_ACTION,
+                                // //   msgAlign: TextAlign.center,
+                                // //   msg:
+                                // //       'Please read all the information below before purchasing.\n',
+                                // //   title: 'Transaction Details',
+                                // //   context: context,
+                                // //   actions: [
+                                // //     IconsOutlineButton(
+                                // //         onPressed: () {},
+                                // //         text: 'Cancel',
+                                // //         iconData: Icons.cancel_outlined,
+                                // //         color: Theme.of(context).primaryColor,
+                                // //         textStyle: TextStyle(
+                                // //           color: CustomMaterialColor(240, 240, 240)
+                                // //               .mdColor,
+                                // //         ),
+                                // //         iconColor: CustomMaterialColor(240, 240, 240)
+                                // //             .mdColor),
+                                // //     IconsButton(
+                                // //         onPressed: () {},
+                                // //         text: 'Purchase',
+                                // //         iconData: Icons.done,
+                                // //         color: Colors.green,
+                                // //         textStyle: TextStyle(
+                                // //           color: CustomMaterialColor(240, 240, 240)
+                                // //               .mdColor,
+                                // //         ),
+                                // //         iconColor: CustomMaterialColor(240, 240, 240)
+                                // //             .mdColor),
+                                // //   ],
+                                // // );
                               },
                               child: Container(
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color:
-                                            CustomMaterialColor(240, 240, 240)
-                                                .mdColor,
-                                        width: 2),
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(10))),
+                                decoration: BoxDecoration(border: Border.all(color: CustomMaterialColor(240, 240, 240).mdColor, width: 2), borderRadius: const BorderRadius.all(Radius.circular(10))),
                                 margin: const EdgeInsets.all(4),
                                 height: 120,
                                 child: ClipRRect(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
+                                  borderRadius: const BorderRadius.all(Radius.circular(10)),
                                   child: Container(
                                     decoration: BoxDecoration(
                                         image: DecorationImage(
-                                      colorFilter: const ColorFilter.mode(
-                                          Colors.black26, BlendMode.darken),
+                                      colorFilter: const ColorFilter.mode(Colors.black26, BlendMode.darken),
                                       fit: BoxFit.cover,
-                                      image:
-                                          AssetImage(timeBgAssets[index % 3]),
+                                      image: AssetImage(timeBgAssets[index % 3]),
                                     )),
                                     child: BackdropFilter(
-                                      filter: ImageFilter.blur(
-                                          sigmaX: 2, sigmaY: 2),
+                                      filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
                                       child: Row(
                                         children: [
                                           Expanded(
                                             flex: 6,
                                             child: Container(
-                                              padding:
-                                                  EdgeInsets.only(left: 20),
+                                              padding: EdgeInsets.only(left: 20),
                                               // color: Colors.red,
-                                              margin: const EdgeInsets.only(
-                                                  top: 4, left: 4, bottom: 4),
+                                              margin: const EdgeInsets.only(top: 4, left: 4, bottom: 4),
                                               child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    data?[index % data.length]
-                                                            .name ??
-                                                        "Unknown Seller",
+                                                    data?[index].name ?? "Unknown Seller",
                                                     textAlign: TextAlign.start,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: const TextStyle(
-                                                        fontSize: 24),
+                                                    overflow: TextOverflow.ellipsis,
+                                                    style: const TextStyle(fontSize: 24),
                                                   ),
                                                   Row(
                                                     children: [
-                                                      Icon(Icons.star,
-                                                          color:
-                                                              CustomMaterialColor(
-                                                                      240,
-                                                                      240,
-                                                                      240)
-                                                                  .mdColor,
-                                                          size: 16),
-                                                      Icon(Icons.star,
-                                                          color:
-                                                              CustomMaterialColor(
-                                                                      240,
-                                                                      240,
-                                                                      240)
-                                                                  .mdColor,
-                                                          size: 16),
-                                                      Icon(Icons.star,
-                                                          color:
-                                                              CustomMaterialColor(
-                                                                      240,
-                                                                      240,
-                                                                      240)
-                                                                  .mdColor,
-                                                          size: 16),
-                                                      Icon(Icons.star_half,
-                                                          color:
-                                                              CustomMaterialColor(
-                                                                      240,
-                                                                      240,
-                                                                      240)
-                                                                  .mdColor,
-                                                          size: 16),
-                                                      Icon(Icons.star_border,
-                                                          color:
-                                                              CustomMaterialColor(
-                                                                      240,
-                                                                      240,
-                                                                      240)
-                                                                  .mdColor,
-                                                          size: 16),
+                                                      Icon(
+                                                        Icons.star,
+                                                        color: Colors.yellow,
+                                                        size: 16,
+                                                      ),
+                                                      Icon(
+                                                        Icons.star,
+                                                        color: Colors.yellow,
+                                                        size: 16,
+                                                      ),
+                                                      Icon(
+                                                        Icons.star,
+                                                        color: Colors.yellow,
+                                                        size: 16,
+                                                      ),
+                                                      Icon(
+                                                        Icons.star_half,
+                                                        color: Colors.yellow,
+                                                        size: 16,
+                                                      ),
+                                                      Icon(
+                                                        Icons.star_border,
+                                                        color: Colors.yellow,
+                                                        size: 16,
+                                                      ),
                                                     ],
                                                   ),
                                                   Expanded(
                                                     child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.end,
+                                                      mainAxisAlignment: MainAxisAlignment.end,
                                                       children: [
                                                         Text(
                                                           "$startTimeFmt - $endTimeFmt",
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          style: TextStyle(
-                                                              fontSize: 16),
+                                                          textAlign: TextAlign.start,
+                                                          overflow: TextOverflow.ellipsis,
+                                                          style: TextStyle(fontSize: 16),
                                                         ),
                                                       ],
                                                     ),
@@ -502,8 +548,7 @@ class _BuyScreenState extends State<BuyScreen> {
                                           Expanded(
                                             flex: 4,
                                             child: Container(
-                                              padding:
-                                                  EdgeInsets.only(right: 15),
+                                              padding: EdgeInsets.only(right: 15),
                                               child: Text(
                                                 '\$${price}',
                                                 textAlign: TextAlign.end,
@@ -521,7 +566,12 @@ class _BuyScreenState extends State<BuyScreen> {
                           } else if (snapshot.hasError) {
                             return Text("${snapshot.error}");
                           }
-                          return CircularProgressIndicator();
+                          return const SizedBox(
+                            width: 20,
+                            child: const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          );
                         },
                       );
                     }),
@@ -532,7 +582,7 @@ class _BuyScreenState extends State<BuyScreen> {
     }
   }
 
-  Future<dynamic> showSheet(BuildContext context, int index) {
+  Future<dynamic> showSheet(BuildContext context, int index, String? sellerName, double SellerPrice, DateTime startTime, DateTime endTime, String sellerLocation) {
     return showModalBottomSheet(
       backgroundColor: Colors.transparent,
       context: context,
@@ -546,7 +596,7 @@ class _BuyScreenState extends State<BuyScreen> {
                 topLeft: Radius.circular(15),
                 topRight: Radius.circular(15),
               ),
-              color: Colors.black,
+              color: Colors.white,
             ),
             child: Column(
               children: [
@@ -560,7 +610,7 @@ class _BuyScreenState extends State<BuyScreen> {
                   child: Text(
                     "Transaction Details",
                     style: const TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontFamily: 'Proxima',
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
@@ -641,13 +691,75 @@ class _BuyScreenState extends State<BuyScreen> {
                 Expanded(
                   child: Container(
                     color: Colors.white,
+                    child: Column(
+                      children: [
+                        ListTile(
+                          leading: const Icon(
+                            Icons.person,
+                            color: Colors.blue,
+                          ),
+                          title: Text(
+                            sellerName!,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'Proxima',
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                        ListTile(
+                          leading: const Icon(
+                            Icons.calendar_today,
+                            color: Colors.red,
+                          ),
+                          title: Text(
+                            "${dateFormat.format(startTime)} - ${dateFormat.format(endTime)}",
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'Proxima',
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                        ListTile(
+                          leading: const Icon(
+                            Icons.attach_money,
+                            color: Colors.green,
+                          ),
+                          title: Text(
+                            SellerPrice.toString(),
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'Proxima',
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                        ListTile(
+                          leading: const Icon(
+                            Icons.map,
+                            color: Colors.orange,
+                          ),
+                          title: Text(
+                            sellerLocation,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'Proxima',
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                         child: Text(
                           "Cancel",
                           style: const TextStyle(
