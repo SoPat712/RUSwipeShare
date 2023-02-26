@@ -8,32 +8,64 @@ class SellScreen extends StatefulWidget {
 }
 
 class _SellScreenState extends State<SellScreen> {
+  Map<String, bool> values = {
+    'Busch Dining Hall': false,
+    'Livingston Dining Hall': false,
+    'Brower Dining Hall': false,
+    'Neilson Dining Hall': false,
+    'Cafe West': false,
+    'Cook Cafe': false,
+    'Douglass Cafe': false,
+    'Harvest INFH': false,
+    'Kilmer\'s Market': false,
+    'College Ave Dining Hall': false,
+    'Red Pine Pizza': false,
+    'Rock Cafe': false,
+    'Sbarro': false,
+    'Woody\'s Cafe': false,
+  };
   @override
   Widget build(BuildContext context) {
-    TimeOfDay _time = TimeOfDay.now();
+    TimeOfDay time = TimeOfDay.now();
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(Icons.store_mall_directory, color: Colors.red),
           const Text('Place'),
-          ListTile(
-            title: Text(_time.format(context)),
-            onTap: () {
-              Future<TimeOfDay?> selectedTime = showTimePicker(
-                context: context,
-                initialTime: _time,
-              );
-              setState(() {
-                selectedTime.then((value) => _time = value!);
-                _time = TimeOfDay(hour: 10, minute: 00);
-              });
-            },
+          ConstrainedBox(
+            constraints: BoxConstraints.expand(height: 100),
+            child: ListView(
+              children: values.keys.map((String key) {
+                return CheckboxListTile(
+                  title: Text(key),
+                  value: values[key],
+                  onChanged: (bool? value) {
+                    setState(() {
+                      values[key] = value!;
+                    });
+                  },
+                );
+              }).toList(),
+            ),
           ),
           LocationDropdown(),
           Icon(Icons.access_time, color: Colors.red),
           Expanded(
             child: const Text('Time'),
+          ),
+          ListTile(
+            title: Text(time.format(context)),
+            onTap: () {
+              Future<TimeOfDay?> selectedTime = showTimePicker(
+                context: context,
+                initialTime: time,
+              );
+              setState(() {
+                selectedTime.then((value) => time = value!);
+                time = TimeOfDay(hour: 10, minute: 00);
+              });
+            },
           ),
           Icon(Icons.attach_money, color: Colors.red),
           Expanded(
@@ -45,13 +77,7 @@ class _SellScreenState extends State<SellScreen> {
   }
 }
 
-const List<String> list = <String>[
-  'Brower',
-  'BDH',
-  'LDH',
-  'Neilson',
-  'Woody\'s'
-];
+const List<String> list = <String>['Brower', 'BDH', 'LDH', 'Neilson', 'Woody\'s'];
 
 class LocationDropdown extends StatefulWidget {
   const LocationDropdown({super.key});
