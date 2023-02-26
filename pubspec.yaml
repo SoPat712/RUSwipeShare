@@ -41,6 +41,7 @@ dependencies:
   flutter_dotenv: ^5.0.2
   persistent_bottom_nav_bar: any
   geolocator: ^9.0.2
+  flutter_credit_card: any
 
 dev_dependencies:
   flutter_test:
