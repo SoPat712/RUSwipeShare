@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:ruswipeshare/buy.dart';
 import 'package:ruswipeshare/sell.dart';
 import 'profile_screen_custom.dart';
 import 'main_screen.dart';
@@ -20,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   List<Widget> _buildScreens() => [
-        const MainScreen(),
+        const BuyScreen(),
         const SellScreen(),
         const ProfileScreenCustom(),
         const MainScreen(),
