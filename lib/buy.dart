@@ -316,29 +316,38 @@ class _BuyScreenState extends State<BuyScreen> {
                       return InkWell(
                         onTap: () {
                           Dialogs.materialDialog(
-                            color: CustomMaterialColor(240, 240, 240).mdColor,
+                            color: Theme.of(context).scaffoldBackgroundColor,
                             customView: const TransactionDetails(),
                             customViewPosition:
                                 CustomViewPosition.BEFORE_ACTION,
+                            msgAlign: TextAlign.center,
                             msg:
-                                'Please read all the information below before purchasing.',
+                                'Please read all the information below before purchasing.\n',
                             title: 'Transaction Details',
                             context: context,
                             actions: [
                               IconsOutlineButton(
-                                onPressed: () {},
-                                text: 'Cancel',
-                                iconData: Icons.cancel_outlined,
-                                textStyle: const TextStyle(color: Colors.grey),
-                                iconColor: Colors.grey,
-                              ),
+                                  onPressed: () {},
+                                  text: 'Cancel',
+                                  iconData: Icons.cancel_outlined,
+                                  color: Theme.of(context).primaryColor,
+                                  textStyle: TextStyle(
+                                    color: CustomMaterialColor(240, 240, 240)
+                                        .mdColor,
+                                  ),
+                                  iconColor: CustomMaterialColor(240, 240, 240)
+                                      .mdColor),
                               IconsButton(
-                                onPressed: () {},
-                                text: 'Purchase',
-                                iconData: Icons.done,
-                                color: Colors.blue,
-                                iconColor: Colors.white,
-                              ),
+                                  onPressed: () {},
+                                  text: 'Purchase',
+                                  iconData: Icons.done,
+                                  color: Colors.green,
+                                  textStyle: TextStyle(
+                                    color: CustomMaterialColor(240, 240, 240)
+                                        .mdColor,
+                                  ),
+                                  iconColor: CustomMaterialColor(240, 240, 240)
+                                      .mdColor),
                             ],
                           );
                         },
@@ -453,7 +462,7 @@ class _TransactionDetailsState extends State<TransactionDetails> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 80,
+      height: 200,
       color: Colors.blue,
     );
   }

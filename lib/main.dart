@@ -18,14 +18,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: CustomMaterialColor(205, 0, 48).mdColor,
-        scaffoldBackgroundColor: Colors.black87,
-        fontFamily: GoogleFonts.figtree().fontFamily,
-        textTheme: Theme.of(context).textTheme.apply(
-              bodyColor: CustomMaterialColor(240, 240, 240).mdColor,
-              displayColor: CustomMaterialColor(240, 240, 240).mdColor,
-            ),
-      ),
+          primarySwatch: CustomMaterialColor(205, 0, 48).mdColor,
+          scaffoldBackgroundColor: Colors.black87,
+          fontFamily: GoogleFonts.figtree().fontFamily,
+          textTheme: Theme.of(context).textTheme.apply(
+                bodyColor: CustomMaterialColor(240, 240, 240).mdColor,
+                displayColor: CustomMaterialColor(240, 240, 240).mdColor,
+              ),
+          textButtonTheme: TextButtonThemeData(
+              style: ButtonStyle(
+                  textStyle: MaterialStatePropertyAll(TextStyle(
+                      color: CustomMaterialColor(240, 240, 240).mdColor))))),
       home: const AuthGate(),
     );
   }
