@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:material_dialogs/shared/types.dart';
+import 'package:material_dialogs/widgets/buttons/icon_button.dart';
+import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
 import 'package:ruswipeshare/sell.dart';
+import 'package:material_dialogs/material_dialogs.dart';
 
 class BuyScreen extends StatefulWidget {
   const BuyScreen({Key? key}) : super(key: key);
@@ -42,8 +46,32 @@ class OffersListView extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           return InkWell(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const SellScreen()));
+              Dialogs.materialDialog(
+                color: Colors.white,
+                customView: TransactionDetails(),
+                customViewPosition: CustomViewPosition.BEFORE_ACTION,
+                msg: 'Please read all the information below before purchasing.',
+                title: 'Transaction Details',
+                context: context,
+                actions: [
+                  IconsOutlineButton(
+                    onPressed: () {
+                    },
+                    text: 'Cancel',
+                    iconData: Icons.cancel_outlined,
+                    textStyle: TextStyle(color: Colors.grey),
+                    iconColor: Colors.grey,
+                  ),
+                  IconsButton(
+                    onPressed: () {},
+                    text: 'Purchase',
+                    iconData: Icons.done,
+                    color: Colors.blue,
+                    textStyle: TextStyle(color: Colors.white),
+                    iconColor: Colors.white,
+                  ),
+                ],
+              );
             },
             child: Container(
               height: 80,
@@ -66,7 +94,7 @@ class OffersListView extends StatelessWidget {
                             style: const TextStyle(fontSize: 24),
                           ),
                           Row(
-                            children: [
+                            children: const [
                               Icon(Icons.star, size: 16),
                               Icon(Icons.star, size: 16),
                               Icon(Icons.star, size: 16),
@@ -77,12 +105,12 @@ class OffersListView extends StatelessWidget {
                           Expanded(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                const Text(
-                                  '\88:88PM - 88:88PM',
+                              children: const [
+                                Text(
+                                  '88:88PM - 88:88PM',
                                   textAlign: TextAlign.start,
                                   overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(fontSize: 16),
+                                  style: TextStyle(fontSize: 16),
                                 ),
                               ],
                             ),
@@ -109,7 +137,20 @@ class OffersListView extends StatelessWidget {
         });
   }
 }
-// return Container(
-//   height: 80,
-//   color: Colors.amber[colorCodes[index % colorCodes.length]],
-// );
+
+class TransactionDetails extends StatefulWidget {
+  const TransactionDetails({super.key});
+
+  @override
+  State<TransactionDetails> createState() => _TransactionDetailsState();
+}
+
+class _TransactionDetailsState extends State<TransactionDetails> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 80,
+      color: Colors.blue,
+    );
+  }
+}

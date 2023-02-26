@@ -43,6 +43,7 @@ dependencies:
   geolocator: ^9.0.2
   flutter_credit_card: any
   flutter_stripe: any
+  material_dialogs: any
 
 dev_dependencies:
   flutter_test:
