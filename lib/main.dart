@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'firebase_options.dart';
 import 'auth_gate.dart';
@@ -17,7 +18,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: CustomMaterialColor(200, 61, 61).mdColor,
+        primarySwatch: CustomMaterialColor(205, 0, 48).mdColor,
+        scaffoldBackgroundColor: Colors.black87,
+        fontFamily: GoogleFonts.figtree().fontFamily,
+        textTheme: Theme.of(context).textTheme.apply(
+              bodyColor: CustomMaterialColor(240, 240, 240).mdColor,
+              displayColor: CustomMaterialColor(240, 240, 240).mdColor,
+            ),
       ),
       home: const AuthGate(),
     );

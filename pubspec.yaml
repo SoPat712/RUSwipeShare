@@ -44,6 +44,7 @@ dependencies:
   flutter_credit_card: any
   flutter_stripe: any
   material_dialogs: any
+  google_fonts: ^4.0.3
 
 dev_dependencies:
   flutter_test:

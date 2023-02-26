@@ -6,20 +6,6 @@ import 'package:material_dialogs/material_dialogs.dart';
 
 enum CampusState { campuses, list_options, offers }
 
-class BuyScreen extends StatefulWidget {
-  const BuyScreen({Key? key}) : super(key: key);
-
-  @override
-  _BuyScreenState createState() => _BuyScreenState();
-}
-
-class _BuyScreenState extends State<BuyScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return ContentDisplay();
-  }
-}
-
 final List<String> entries = <String>[
   'Antoinette Beauchamp',
   'Iliana Campbell',
@@ -50,115 +36,14 @@ final List<List<String>> eatingLocations = [
 ];
 final List<int> colorCodes = <int>[600, 500, 100];
 
-class OffersListView extends StatelessWidget {
-  const OffersListView({super.key});
+class BuyScreen extends StatefulWidget {
+  const BuyScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: 30,
-        padding: EdgeInsets.zero,
-        itemBuilder: (BuildContext context, int index) {
-          return InkWell(
-            onTap: () {
-              Dialogs.materialDialog(
-                color: Colors.white,
-                customView: TransactionDetails(),
-                customViewPosition: CustomViewPosition.BEFORE_ACTION,
-                msg: 'Please read all the information below before purchasing.',
-                title: 'Transaction Details',
-                context: context,
-                actions: [
-                  IconsOutlineButton(
-                    onPressed: () {},
-                    text: 'Cancel',
-                    iconData: Icons.cancel_outlined,
-                    textStyle: TextStyle(color: Colors.grey),
-                    iconColor: Colors.grey,
-                  ),
-                  IconsButton(
-                    onPressed: () {},
-                    text: 'Purchase',
-                    iconData: Icons.done,
-                    color: Colors.blue,
-                    textStyle: TextStyle(color: Colors.white),
-                    iconColor: Colors.white,
-                  ),
-                ],
-              );
-            },
-            child: Container(
-              height: 80,
-              color: Colors.blue,
-              margin: const EdgeInsets.only(bottom: 4),
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 7,
-                    child: Container(
-                      color: Colors.red,
-                      margin: EdgeInsets.only(top: 4, left: 4, bottom: 4),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            entries[index % entries.length],
-                            textAlign: TextAlign.start,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(fontSize: 24),
-                          ),
-                          Row(
-                            children: const [
-                              Icon(Icons.star, size: 16),
-                              Icon(Icons.star, size: 16),
-                              Icon(Icons.star, size: 16),
-                              Icon(Icons.star_half, size: 16),
-                              Icon(Icons.star_border, size: 16),
-                            ],
-                          ),
-                          Expanded(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: const [
-                                Text(
-                                  '88:88PM - 88:88PM',
-                                  textAlign: TextAlign.start,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 3,
-                    child: Container(
-                      color: Colors.orange,
-                      child: const Text(
-                        '\$88',
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 44),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          );
-        });
-  }
+  _BuyScreenState createState() => _BuyScreenState();
 }
 
-class ContentDisplay extends StatefulWidget {
-  const ContentDisplay({super.key});
-  @override
-  _CampusGridViewState createState() => _CampusGridViewState();
-}
-
-class _CampusGridViewState extends State<ContentDisplay> {
+class _BuyScreenState extends State<BuyScreen> {
   CampusState _currentState = CampusState.campuses;
   List<String> _diningOptions = List.empty();
   String _selectedLocation = "";
@@ -176,8 +61,8 @@ class _CampusGridViewState extends State<ContentDisplay> {
                   physics: NeverScrollableScrollPhysics(),
                   crossAxisCount: 2,
                   crossAxisSpacing: 15,
-                  childAspectRatio: 1,
-                  mainAxisSpacing: 15,
+                  childAspectRatio: 0.8,
+                  mainAxisSpacing: 20,
                   padding: EdgeInsets.all(10),
                   children: [
                     InkWell(
@@ -267,7 +152,7 @@ class _CampusGridViewState extends State<ContentDisplay> {
                           Container(
                             width: double.infinity,
                             padding: EdgeInsets.all(8),
-                            color: Colors.yellow,
+                            color: Colors.yellow[700],
                             child: Text(
                               "Cook-Douglass",
                               textAlign: TextAlign.center,
@@ -340,128 +225,132 @@ class _CampusGridViewState extends State<ContentDisplay> {
           ],
         ));
       case CampusState.offers:
-        return Column(
-          children: [
-            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-              Flexible(
-                flex: 8,
-                fit: FlexFit.tight,
-                child: ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        _currentState = CampusState.campuses;
-                      });
-                    },
-                    child: const Text("Choose A Different Location")),
-              ),
-              Flexible(
-                  flex: 2,
+        return Scaffold(
+          body: Column(
+            children: [
+              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                Flexible(
+                  flex: 8,
+                  fit: FlexFit.tight,
                   child: ElevatedButton(
-                      onPressed: () {}, child: const Icon(Icons.filter_list)))
-            ]),
-            Expanded(
-              child: ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  itemCount: 30,
-                  padding: EdgeInsets.zero,
-                  itemBuilder: (BuildContext context, int index) {
-                    return InkWell(
-                      onTap: () {
-                        Dialogs.materialDialog(
-                          color: Colors.white,
-                          customView: TransactionDetails(),
-                          customViewPosition: CustomViewPosition.BEFORE_ACTION,
-                          msg:
-                              'Please read all the information below before purchasing.',
-                          title: 'Transaction Details',
-                          context: context,
-                          actions: [
-                            IconsOutlineButton(
-                              onPressed: () {},
-                              text: 'Cancel',
-                              iconData: Icons.cancel_outlined,
-                              textStyle: TextStyle(color: Colors.grey),
-                              iconColor: Colors.grey,
-                            ),
-                            IconsButton(
-                              onPressed: () {},
-                              text: 'Purchase',
-                              iconData: Icons.done,
-                              color: Colors.blue,
-                              textStyle: TextStyle(color: Colors.white),
-                              iconColor: Colors.white,
-                            ),
-                          ],
-                        );
+                      onPressed: () {
+                        setState(() {
+                          _currentState = CampusState.campuses;
+                        });
                       },
-                      child: Container(
-                        height: 80,
-                        color: Colors.blue,
-                        margin: const EdgeInsets.only(bottom: 4),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 7,
-                              child: Container(
-                                color: Colors.red,
-                                margin:
-                                    EdgeInsets.only(top: 4, left: 4, bottom: 4),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      entries[index % entries.length] +
-                                          " " +
-                                          _selectedLocation,
-                                      textAlign: TextAlign.start,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(fontSize: 24),
-                                    ),
-                                    Row(
-                                      children: const [
-                                        Icon(Icons.star, size: 16),
-                                        Icon(Icons.star, size: 16),
-                                        Icon(Icons.star, size: 16),
-                                        Icon(Icons.star_half, size: 16),
-                                        Icon(Icons.star_border, size: 16),
-                                      ],
-                                    ),
-                                    Expanded(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                      child: const Text("Choose A Different Location")),
+                ),
+                Flexible(
+                    flex: 2,
+                    child: ElevatedButton(
+                        onPressed: () {}, child: const Icon(Icons.filter_list)))
+              ]),
+              Expanded(
+                child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    itemCount: 30,
+                    padding: EdgeInsets.zero,
+                    itemBuilder: (BuildContext context, int index) {
+                      return InkWell(
+                        onTap: () {
+                          Dialogs.materialDialog(
+                            color: Colors.white,
+                            customView: TransactionDetails(),
+                            customViewPosition:
+                                CustomViewPosition.BEFORE_ACTION,
+                            msg:
+                                'Please read all the information below before purchasing.',
+                            title: 'Transaction Details',
+                            context: context,
+                            actions: [
+                              IconsOutlineButton(
+                                onPressed: () {},
+                                text: 'Cancel',
+                                iconData: Icons.cancel_outlined,
+                                textStyle: TextStyle(color: Colors.grey),
+                                iconColor: Colors.grey,
+                              ),
+                              IconsButton(
+                                onPressed: () {},
+                                text: 'Purchase',
+                                iconData: Icons.done,
+                                color: Colors.blue,
+                                textStyle: TextStyle(color: Colors.white),
+                                iconColor: Colors.white,
+                              ),
+                            ],
+                          );
+                        },
+                        child: Container(
+                          height: 80,
+                          // color: Colors.blue,
+                          margin: const EdgeInsets.only(bottom: 4),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 7,
+                                child: Container(
+                                  color: Colors.red,
+                                  margin: EdgeInsets.only(
+                                      top: 4, left: 4, bottom: 4),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        entries[index % entries.length] +
+                                            " " +
+                                            _selectedLocation,
+                                        textAlign: TextAlign.start,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(fontSize: 24),
+                                      ),
+                                      Row(
                                         children: const [
-                                          Text(
-                                            '88:88PM - 88:88PM',
-                                            textAlign: TextAlign.start,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(fontSize: 16),
-                                          ),
+                                          Icon(Icons.star, size: 16),
+                                          Icon(Icons.star, size: 16),
+                                          Icon(Icons.star, size: 16),
+                                          Icon(Icons.star_half, size: 16),
+                                          Icon(Icons.star_border, size: 16),
                                         ],
                                       ),
-                                    )
-                                  ],
+                                      Expanded(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: const [
+                                            Text(
+                                              '88:88PM - 88:88PM',
+                                              textAlign: TextAlign.start,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(fontSize: 16),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                            Expanded(
-                              flex: 3,
-                              child: Container(
-                                color: Colors.orange,
-                                child: const Text(
-                                  '\$88',
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(fontSize: 44),
+                              Expanded(
+                                flex: 3,
+                                child: Container(
+                                  color: Colors.orange,
+                                  child: const Text(
+                                    '\$88',
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(fontSize: 44),
+                                  ),
                                 ),
-                              ),
-                            )
-                          ],
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  }),
-            ),
-          ],
+                      );
+                    }),
+              ),
+            ],
+          ),
         );
     }
   }
