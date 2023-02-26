@@ -773,7 +773,7 @@ class _BuyScreenState extends State<BuyScreen> {
                     // add close button
                     ElevatedButton(
                         onPressed: () async {
-                          Navigator.pop(context);
+                          
                           try {
       // 1. create payment intent on the server
     int price = (SellerPrice*100).toInt();
@@ -804,9 +804,9 @@ class _BuyScreenState extends State<BuyScreen> {
       );
       rethrow;
     }
-
+  
     await Stripe.instance.presentPaymentSheet();
-
+Navigator.pop(context);
 
                         },
                         child: Text(
