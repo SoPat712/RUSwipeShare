@@ -21,7 +21,7 @@ class Seller implements Comparable<Seller> {
   String uid = "";
   List<dynamic> location;
   TimeRange availableTime;
-  int price;
+  double price;
 
   Seller(this.name, this.uid, this.location, this.availableTime, this.price);
 
@@ -54,6 +54,22 @@ List<Seller> fetchNSellers(int n) {
         }
       });
   return sellers;
+}
+
+void addSeller(Seller seller) async {
+  final CollectionReference sellers =
+      FirebaseFirestore.instance.collection('sellers');
+  return await sellers
+      .add({
+        'name': seller.name,
+        'uid': seller.uid,
+        'price': seller.price,
+        'start-time': seller.availableTime.startTime,
+        'end-time': seller.availableTime.endTime,
+        'location': seller.location,
+      })
+      .then((value) => print(""))
+      .catchError((error) => print("ERROR ADDING DATA: $error"));
 }
 
 Future<List<Seller>> getSellers(Filter filter) async {
