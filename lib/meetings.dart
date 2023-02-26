@@ -32,7 +32,7 @@ class Seller implements Comparable<Seller> {
 
   @override
   int compareTo(Seller other) {
-    return name.compareTo(other.name);
+    return price.compareTo(other.price);
   }
 }
 
@@ -42,6 +42,18 @@ class Filter {
   TimeRange? meetingTime;
 
   Filter(this.locations, this.price, this.meetingTime);
+}
+
+List<Seller> fetchNSellers(int n) {
+  List<Seller> sellers = List.empty(growable: true);
+  CollectionReference users = FirebaseFirestore.instance.collection('sellers');
+  users.get().then((value) => () {
+        for (var doc in value.docs) {
+          sellers.add(Seller(doc["name"], doc["uid"], doc["location"],
+              TimeRange(doc["start-time"], doc["end-time"]), doc["price"]));
+        }
+      });
+  return sellers;
 }
 
 Future<List<Seller>> getSellers(Filter filter) async {
@@ -55,9 +67,26 @@ Future<List<Seller>> getSellers(Filter filter) async {
           isLessThanOrEqualTo: filter.price?.high);
 
   final QuerySnapshot snapshot = await query.get();
-  for (var doc in snapshot.docs) {
-    sellers.add(Seller(doc["name"], doc["uid"], doc["location"],
-        TimeRange(doc["start-time"], doc["end-time"]), doc["price"]));
+  final startTime = filter.meetingTime?.endTime;
+  final endTime = filter.meetingTime?.startTime;
+
+  if (startTime != null && endTime != null) {
+    var docs = snapshot.docs
+        .where((element) =>
+            startTime.compareTo(element["start-time"]) > 0 ||
+            element["start-time"] == (startTime))
+        .where((element) =>
+            endTime.compareTo(element["end-time"]) < 0 ||
+            element["end-time"] == (endTime));
+    for (var doc in docs) {
+      sellers.add(Seller(doc["name"], doc["uid"], doc["location"],
+          TimeRange(doc["start-time"], doc["end-time"]), doc["price"]));
+    }
+  } else {
+    for (var doc in snapshot.docs) {
+      sellers.add(Seller(doc["name"], doc["uid"], doc["location"],
+          TimeRange(doc["start-time"], doc["end-time"]), doc["price"]));
+    }
   }
   return sellers;
 }
