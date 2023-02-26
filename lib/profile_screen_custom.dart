@@ -4,6 +4,8 @@
 
 // ignore_for_file: implementation_imports
 
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart' show ActionCodeSettings, FirebaseAuth, FirebaseAuthException, User;
 import 'package:flutter/cupertino.dart' hide Title;
 import 'package:flutter/material.dart';
@@ -11,6 +13,8 @@ import 'package:flutter/material.dart' hide Title;
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/credit_card_brand.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutterfire_ui/auth.dart';
 import 'package:flutterfire_ui/src/auth/widgets/internal/loading_button.dart';
 
@@ -257,7 +261,43 @@ class ProfileScreenCustom extends MultiProviderScreen {
   style: ButtonStyle(
     foregroundColor: MaterialStateProperty.all<Color>(Colors.red),
   ),
-  onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context)=> CreditView())); },
+  onPressed: () async {
+    
+
+  try {
+      // 1. create payment intent on the server
+   
+    var Ddata = await http.get(Uri.parse('http://172.20.10.2:5000/payment-sheet?price=50'));
+
+     var data = jsonDecode(Ddata.body);
+     print("wtf");
+      
+      // 2. initialize the payment sheet
+      await Stripe.instance.initPaymentSheet(
+        paymentSheetParameters: SetupPaymentSheetParameters(
+          // Enable custom flow
+          customFlow: true,
+          // Main params
+          merchantDisplayName: 'RU SwipeTrade',
+          paymentIntentClientSecret: data['paymentIntent'],
+          // Customer keys
+          customerEphemeralKeySecret: data['ephemeralKey'],
+          customerId: data['customer'],
+          // Extra options
+          style: ThemeMode.dark,
+        ),
+      );
+     
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );
+      rethrow;
+    }
+
+    await Stripe.instance.presentPaymentSheet();
+
+  },
   child: Text('Setup Seller'),
 ),
         Align(
