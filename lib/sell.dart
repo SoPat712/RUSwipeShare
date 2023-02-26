@@ -12,10 +12,6 @@ class _SellScreenState extends State<SellScreen> {
   Widget build(BuildContext context) {
     TimeOfDay _time = TimeOfDay.now();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Sell'),
-        automaticallyImplyLeading: false,
-      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
