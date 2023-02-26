@@ -1,11 +1,6 @@
-import 'dart:collection';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:material_dialogs/shared/types.dart';
-import 'package:material_dialogs/widgets/buttons/icon_button.dart';
-import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
-import 'package:material_dialogs/material_dialogs.dart';
 import 'package:ruswipeshare/main.dart';
 
 enum CampusState { campuses, list_options, offers }
@@ -293,63 +288,64 @@ class _BuyScreenState extends State<BuyScreen> {
                     itemBuilder: (BuildContext context, int index) {
                       return InkWell(
                         onTap: () {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) => Dialog(
-                                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        const Text('Transaction Details'),
-                                        const SizedBox(height: 15),
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Text('Close'),
-                                        ),
-                                      ],
-                                    ),
-                                  )));
-                          // Dialogs.materialDialog(
-                          //   color: Theme.of(context).scaffoldBackgroundColor,
-                          //   customView: const TransactionDetails(),
-                          //   customViewPosition:
-                          //       CustomViewPosition.BEFORE_ACTION,
-                          //   msgAlign: TextAlign.center,
-                          //   msg:
-                          //       'Please read all the information below before purchasing.\n',
-                          //   title: 'Transaction Details',
-                          //   context: context,
-                          //   actions: [
-                          //     IconsOutlineButton(
-                          //         onPressed: () {},
-                          //         text: 'Cancel',
-                          //         iconData: Icons.cancel_outlined,
-                          //         color: Theme.of(context).primaryColor,
-                          //         textStyle: TextStyle(
-                          //           color: CustomMaterialColor(240, 240, 240)
-                          //               .mdColor,
-                          //         ),
-                          //         iconColor: CustomMaterialColor(240, 240, 240)
-                          //             .mdColor),
-                          //     IconsButton(
-                          //         onPressed: () {},
-                          //         text: 'Purchase',
-                          //         iconData: Icons.done,
-                          //         color: Colors.green,
-                          //         textStyle: TextStyle(
-                          //           color: CustomMaterialColor(240, 240, 240)
-                          //               .mdColor,
-                          //         ),
-                          //         iconColor: CustomMaterialColor(240, 240, 240)
-                          //             .mdColor),
-                          //   ],
-                          // );
+                          showSheet(context, index);
+                          // showDialog(
+                          //     context: context,
+                          //     builder: (BuildContext context) => Dialog(
+                          //         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                          //         shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
+                          //         child: Padding(
+                          //           padding: const EdgeInsets.all(8.0),
+                          //           child: Column(
+                          //             mainAxisSize: MainAxisSize.min,
+                          //             mainAxisAlignment: MainAxisAlignment.center,
+                          //             children: <Widget>[
+                          //               const Text('Transaction Details'),
+                          //               const SizedBox(height: 15),
+                          //               TextButton(
+                          //                 onPressed: () {
+                          //                   Navigator.pop(context);
+                          //                 },
+                          //                 child: const Text('Close'),
+                          //               ),
+                          //             ],
+                          //           ),
+                          //         )));
+                          // // Dialogs.materialDialog(
+                          // //   color: Theme.of(context).scaffoldBackgroundColor,
+                          // //   customView: const TransactionDetails(),
+                          // //   customViewPosition:
+                          // //       CustomViewPosition.BEFORE_ACTION,
+                          // //   msgAlign: TextAlign.center,
+                          // //   msg:
+                          // //       'Please read all the information below before purchasing.\n',
+                          // //   title: 'Transaction Details',
+                          // //   context: context,
+                          // //   actions: [
+                          // //     IconsOutlineButton(
+                          // //         onPressed: () {},
+                          // //         text: 'Cancel',
+                          // //         iconData: Icons.cancel_outlined,
+                          // //         color: Theme.of(context).primaryColor,
+                          // //         textStyle: TextStyle(
+                          // //           color: CustomMaterialColor(240, 240, 240)
+                          // //               .mdColor,
+                          // //         ),
+                          // //         iconColor: CustomMaterialColor(240, 240, 240)
+                          // //             .mdColor),
+                          // //     IconsButton(
+                          // //         onPressed: () {},
+                          // //         text: 'Purchase',
+                          // //         iconData: Icons.done,
+                          // //         color: Colors.green,
+                          // //         textStyle: TextStyle(
+                          // //           color: CustomMaterialColor(240, 240, 240)
+                          // //               .mdColor,
+                          // //         ),
+                          // //         iconColor: CustomMaterialColor(240, 240, 240)
+                          // //             .mdColor),
+                          // //   ],
+                          // // );
                         },
                         child: Container(
                           decoration: BoxDecoration(border: Border.all(color: CustomMaterialColor(240, 240, 240).mdColor, width: 2), borderRadius: const BorderRadius.all(Radius.circular(10))),
@@ -434,6 +430,155 @@ class _BuyScreenState extends State<BuyScreen> {
         );
     }
   }
+
+  Future<dynamic> showSheet(BuildContext context, int index) {
+    return showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+          child: Container(
+            height: 400,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(15),
+                topRight: Radius.circular(15),
+              ),
+              color: Colors.black,
+            ),
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.fromLTRB(
+                    18,
+                    20,
+                    0,
+                    25,
+                  ),
+                  child: Text(
+                    "Transaction Details",
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Proxima',
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+                // ListTile(
+                //   leading: const Icon(
+                //     Icons.home,
+                //   ),
+                //   onTap: () async {
+                //     Navigator.pop(context);
+
+                //     if (myPlacesIds[index] != myHomeId) {
+                //       scrollController.animateTo(0,
+                //           duration: const Duration(milliseconds: 400),
+                //           curve: Curves.easeInOutCirc);
+                //       myHomeFullName = myPlacesFullName[index];
+                //       myHomeId = myPlacesIds[index];
+                //       myHomeMainText = myPlacesMainText[index];
+                //       myHomeSecondaryText = myPlacesSecondaryText[index];
+                //       if (index != 0) {
+                //         myPlacesIds.insert(0, myHomeId);
+                //         myPlacesFullName.insert(0, myHomeFullName);
+                //         myPlacesMainText.insert(0, myHomeMainText);
+                //         myPlacesSecondaryText.insert(0, myHomeSecondaryText);
+                //         _listKey.currentState!.insertItem(0,
+                //             duration: const Duration(milliseconds: 200));
+
+                //         await Future.delayed(const Duration(milliseconds: 200),
+                //             () async {
+                //           myPlacesFullName.removeAt(index + 1);
+                //           myPlacesMainText.removeAt(index + 1);
+                //           myPlacesSecondaryText.removeAt(index + 1);
+                //           myPlacesIds.removeAt(index + 1);
+                //           _listKey.currentState!.removeItem(
+                //             index + 1,
+                //             (context, animation) {
+                //               return _buildLocTileOutAnimate(
+                //                   context,
+                //                   animation,
+                //                   myPlacesMainText[0],
+                //                   myPlacesSecondaryText[0],
+                //                   true);
+                //             },
+                //             duration: const Duration(milliseconds: 200),
+                //           );
+                //           indexrem = index;
+                //         });
+                //       } else {
+                //         myHomeFullName = myPlacesFullName[index];
+                //         myHomeId = myPlacesIds[index];
+                //         myHomeMainText = myPlacesMainText[index];
+                //         myHomeSecondaryText = myPlacesSecondaryText[index];
+                //         setState(() {});
+                //       }
+                //     } else {
+                //       myHomeId = "";
+                //       myHomeFullName = "";
+                //       myHomeSecondaryText = "";
+                //       myHomeMainText = "";
+                //       setState(() {});
+                //     }
+                //     _saveHome();
+                //     _saveList();
+                //   },
+                //   title: Text(
+                //     (myPlacesIds[index] != myHomeId)
+                //         ? "Set as Home"
+                //         : "Remove as home",
+                //     style: const TextStyle(
+                //       fontFamily: 'Proxima',
+                //       fontSize: 18,
+                //     ),
+                //   ),
+                // ),
+                Expanded(
+                  child: Container(
+                    color: Colors.white,
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton( 
+                        onPressed: () {},
+                        child: Text(
+                          "Cancel",
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Proxima',
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                          ),
+                          textAlign: TextAlign.center,
+                        )),
+                    // add close button
+                    ElevatedButton(
+                        onPressed: () {},
+                        child: Text(
+                          "Purchase",
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Proxima',
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                          ),
+                          textAlign: TextAlign.center,
+                        ))
+                  ],
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 }
 
 class TransactionDetails extends StatefulWidget {
@@ -450,5 +595,28 @@ class _TransactionDetailsState extends State<TransactionDetails> {
       height: 200,
       color: Colors.blue,
     );
+  }
+}
+ class CustomMaterialColor {
+  final int r;
+  final int g;
+  final int b;
+
+  CustomMaterialColor(this.r, this.g, this.b);
+
+  MaterialColor get mdColor {
+    Map<int, Color> color = {
+      50: Color.fromRGBO(r, g, b, .1),
+      100: Color.fromRGBO(r, g, b, .2),
+      200: Color.fromRGBO(r, g, b, .3),
+      300: Color.fromRGBO(r, g, b, .4),
+      400: Color.fromRGBO(r, g, b, .5),
+      500: Color.fromRGBO(r, g, b, .6),
+      600: Color.fromRGBO(r, g, b, .7),
+      700: Color.fromRGBO(r, g, b, .8),
+      800: Color.fromRGBO(r, g, b, .9),
+      900: Color.fromRGBO(r, g, b, 1),
+    };
+    return MaterialColor(Color.fromRGBO(r, g, b, 1).value, color);
   }
 }

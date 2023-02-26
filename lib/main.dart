@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class CustomMaterialColor {
+ class CustomMaterialColor {
   final int r;
   final int g;
   final int b;

@@ -145,20 +145,7 @@ class _SellScreenState extends State<SellScreen> {
               Text('Cost'),
             ],
           ),
-          //make a row with a text selector for min and max swipe cost
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: const [
-              SizedBox(
-                width: 150,
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Min price',
-                  ),
-                ),
-              ),
-              SizedBox(
+          SizedBox(
                 width: 150,
                 child: TextField(
                   decoration: InputDecoration(
@@ -167,8 +154,6 @@ class _SellScreenState extends State<SellScreen> {
                   ),
                 ),
               ),
-            ],
-          ),
           ElevatedButton(
             onPressed: () {},
             style: ButtonStyle(
