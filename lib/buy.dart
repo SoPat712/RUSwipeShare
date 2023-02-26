@@ -17,7 +17,16 @@ class _BuyScreenState extends State<BuyScreen> {
   Widget build(BuildContext context) {
     TimeOfDay _time = TimeOfDay.now();
     return Scaffold(
-      body: const OffersListView(),
+      body: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            child: ElevatedButton(
+                onPressed: () {}, child: Text("Choose A Different Location")),
+          ),
+          const Expanded(child: CampusGridView()),
+        ],
+      ),
     );
   }
 }
@@ -43,6 +52,7 @@ class OffersListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
         itemCount: 30,
+        padding: EdgeInsets.zero,
         itemBuilder: (BuildContext context, int index) {
           return InkWell(
             onTap: () {
@@ -76,7 +86,7 @@ class OffersListView extends StatelessWidget {
             child: Container(
               height: 80,
               color: Colors.blue,
-              margin: const EdgeInsets.only(top: 4, bottom: 4),
+              margin: const EdgeInsets.only(bottom: 4),
               child: Row(
                 children: [
                   Expanded(
