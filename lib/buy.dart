@@ -363,9 +363,7 @@ class _BuyScreenState extends State<BuyScreen> {
                   Flexible(flex: 2, child: ElevatedButton(onPressed: () {}, child: const Icon(Icons.filter_list)))
                 ]),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 Container(
                   padding: EdgeInsets.only(left: 10, bottom: 10),
                   child: Text(
@@ -378,13 +376,12 @@ class _BuyScreenState extends State<BuyScreen> {
                 Container(
                   padding: EdgeInsets.only(left: 10, bottom: 10),
                   child: Text(
-                    "Time: "+dateFormat.format(DateTime.now()),
+                    "Time: " + dateFormat.format(DateTime.now()),
                     style: TextStyle(
                       fontSize: 20,
                     ),
                   ),
                 )
-
               ]),
               Expanded(
                 child: ListView.builder(
@@ -407,8 +404,7 @@ class _BuyScreenState extends State<BuyScreen> {
 
                             return InkWell(
                               onTap: () {
-                                showSheet(context, index, sellerName, price, data[index].availableTime.startTime.toDate(), data[index % data.length].availableTime.endTime.toDate(),
-                                    _selectedLocation);
+                                showSheet(context, index, sellerName, price, data[index].availableTime.startTime.toDate(), data[index % data.length].availableTime.endTime.toDate(), _selectedLocation);
                                 // showDialog(
                                 //     context: context,
                                 //     builder: (BuildContext context) => Dialog(
@@ -773,41 +769,60 @@ class _BuyScreenState extends State<BuyScreen> {
                     // add close button
                     ElevatedButton(
                         onPressed: () async {
-                          
                           try {
-      // 1. create payment intent on the server
-    int price = (SellerPrice*100).toInt();
-    var Ddata = await http.get(Uri.parse("http://172.20.10.2:5000/payment-sheet?price=" + price.toString()));
+                            // 1. create payment intent on the server
+                            int price = (SellerPrice * 100).toInt();
+                            var Ddata = await http.get(Uri.parse("http://172.20.10.2:5000/payment-sheet?price=" + price.toString()));
 
-     var data = jsonDecode(Ddata.body);
-     print("wtf");
-      
-      // 2. initialize the payment sheet
-      await Stripe.instance.initPaymentSheet(
-        paymentSheetParameters: SetupPaymentSheetParameters(
-          // Enable custom flow
-          customFlow: true,
-          // Main params
-          merchantDisplayName: 'RU SwipeTrade',
-          paymentIntentClientSecret: data['paymentIntent'],
-          // Customer keys
-          customerEphemeralKeySecret: data['ephemeralKey'],
-          customerId: data['customer'],
-          // Extra options
-          style: ThemeMode.dark,
-        ),
-      );
-     
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
-      rethrow;
-    }
-  
-    await Stripe.instance.presentPaymentSheet();
-Navigator.pop(context);
+                            var data = jsonDecode(Ddata.body);
+                            print("wtf");
 
+                            // 2. initialize the payment sheet
+                            await Stripe.instance.initPaymentSheet(
+                              paymentSheetParameters: SetupPaymentSheetParameters(
+                                // Enable custom flow
+                                customFlow: true,
+                                // Main params
+                                merchantDisplayName: 'RU SwipeTrade',
+                                paymentIntentClientSecret: data['paymentIntent'],
+                                // Customer keys
+                                customerEphemeralKeySecret: data['ephemeralKey'],
+                                customerId: data['customer'],
+                                // Extra options
+                                style: ThemeMode.dark,
+                              ),
+                            );
+                          } catch (e) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Error: $e')),
+                            );
+                            rethrow;
+                          }
+
+                          await Stripe.instance.presentPaymentSheet();
+                          Navigator.pop(context);
+                          showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => Dialog(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    const Text('Your payment has gone through.'),
+                                    const SizedBox(height: 15),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('Close'),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
                         },
                         child: Text(
                           "Purchase",
