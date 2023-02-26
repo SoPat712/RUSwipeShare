@@ -9,22 +9,29 @@ class TimeRange {
   TimeRange(this.startTime, this.endTime);
 }
 
+class PriceRange {
+  int low = 0;
+  int high = 0;
+
+  PriceRange(this.low, this.high);
+}
+
 class Seller {
   String name = "";
   String uid = "";
-  String location = "";
+  List<String> location;
   TimeRange availableTime;
-  Int64 price;
+  int price;
 
   Seller(this.name, this.uid, this.location, this.availableTime, this.price);
 }
 
 class Filter {
-  String? location;
-  Int64? price;
+  List<String>? locations;
+  PriceRange? price;
   TimeRange? meetingTime;
 
-  Filter(this.location, this.price, this.meetingTime);
+  Filter(this.locations, this.price, this.meetingTime);
 }
 
 Future<List<Seller>> getSellers(Filter filter) async {
@@ -32,8 +39,10 @@ Future<List<Seller>> getSellers(Filter filter) async {
   List<Seller> sellers = List.empty();
 
   final Query query = users
-      .where('location', isEqualTo: filter.location)
-      .where('price', isEqualTo: filter.price)
+      .where('location', arrayContainsAny: filter.locations)
+      .where('price',
+          isGreaterThanOrEqualTo: filter.price?.low,
+          isLessThanOrEqualTo: filter.price?.high)
       .where('start-time',
           isGreaterThanOrEqualTo: filter.meetingTime?.startTime)
       .where('end-time', isLessThanOrEqualTo: filter.meetingTime?.endTime);
