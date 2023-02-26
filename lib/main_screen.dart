@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'meetings.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({ Key? key }) : super(key: key);
+  const MainScreen({Key? key}) : super(key: key);
 
   @override
   _MainScreenState createState() => _MainScreenState();
@@ -12,10 +13,10 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Main Screen"),
+        title: const Text("Main Beens"),
       ),
       body: const Center(
-        child: Text("Main Screen"),
+        child: Text("Main Green"),
       ),
     );
   }
