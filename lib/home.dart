@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:ruswipeshare/sell.dart';
 import 'profile_screen_custom.dart';
 import 'main_screen.dart';
 
@@ -20,13 +21,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Widget> _buildScreens() => [
         const MainScreen(),
-        const MainScreen(),
+        const SellScreen(),
         const ProfileScreenCustom(),
         const MainScreen(),
       ];
 
   List<PersistentBottomNavBarItem> _navBarsItems() => [
-        PersistentBottomNavBarItem(icon: const Icon(Icons.shopping_cart), title: "Buy", activeColorPrimary: Colors.blue, inactiveColorPrimary: Colors.grey, inactiveColorSecondary: Colors.purple),
+        PersistentBottomNavBarItem(
+            icon: const Icon(Icons.shopping_cart),
+            title: "Buy",
+            activeColorPrimary: Colors.blue,
+            inactiveColorPrimary: Colors.grey,
+            inactiveColorSecondary: Colors.purple),
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.attach_money),
           title: "Sell",
@@ -66,9 +72,11 @@ class _HomeScreenState extends State<HomeScreen> {
       confineInSafeArea: true,
       backgroundColor: Colors.white, // Default is Colors.white.
       handleAndroidBackButtonPress: true, // Default is true.
-      resizeToAvoidBottomInset: true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
+      resizeToAvoidBottomInset:
+          true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
       stateManagement: true, // Default is true.
-      hideNavigationBarWhenKeyboardShows: true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
+      hideNavigationBarWhenKeyboardShows:
+          true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
       decoration: NavBarDecoration(
         borderRadius: BorderRadius.circular(10.0),
         colorBehindNavBar: Colors.white,
@@ -86,7 +94,8 @@ class _HomeScreenState extends State<HomeScreen> {
         curve: Curves.ease,
         duration: Duration(milliseconds: 200),
       ),
-      navBarStyle: NavBarStyle.style13, // Choose the nav bar style with this property.
+      navBarStyle:
+          NavBarStyle.style13, // Choose the nav bar style with this property.
     );
   }
 }
