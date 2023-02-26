@@ -1,8 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
+import 'package:ruswipeshare/auth_gate.dart';
 import 'package:ruswipeshare/meetings.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SellScreen extends StatefulWidget {
   const SellScreen({Key? key}) : super(key: key);
@@ -30,13 +34,15 @@ class _SellScreenState extends State<SellScreen> {
   String endTime = 'End Time';
   DateTime endTimeTime = DateTime.now();
   bool? is24HoursFormat;
+  double price = 0;
+  final priceController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     bool is24HoursFormat = MediaQuery.of(context).alwaysUse24HourFormat;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+        padding: const EdgeInsets.fromLTRB(0,8,0,0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -98,10 +104,19 @@ class _SellScreenState extends State<SellScreen> {
                       context: context,
                       initialTime: TimeOfDay.fromDateTime(startTimeTime),
                     );
-                    if (picked != null && picked != TimeOfDay.fromDateTime(startTimeTime)) {
+                    if (picked != null &&
+                        picked != TimeOfDay.fromDateTime(startTimeTime)) {
                       setState(() {
-                        startTimeTime = DateTime.fromMicrosecondsSinceEpoch(picked.hour * 60 * 60 * 1000000 + picked.minute * 60 * 1000000, isUtc: true);
-                        startTime = startTimeTime.hour.toString() + ":" + startTimeTime.minute.toString() + ((is24HoursFormat) ? "" : ((startTimeTime.hour > 12) ? "PM" : "AM"));
+                        startTimeTime = DateTime.fromMicrosecondsSinceEpoch(
+                            picked.hour * 60 * 60 * 1000000 +
+                                picked.minute * 60 * 1000000,
+                            isUtc: true);
+                        startTime = startTimeTime.hour.toString() +
+                            ":" +
+                            startTimeTime.minute.toString() +
+                            ((is24HoursFormat)
+                                ? ""
+                                : ((startTimeTime.hour > 12) ? "PM" : "AM"));
                       });
                     }
                   },
@@ -113,10 +128,19 @@ class _SellScreenState extends State<SellScreen> {
                       context: context,
                       initialTime: TimeOfDay.fromDateTime(endTimeTime),
                     );
-                    if (picked != null && picked != TimeOfDay.fromDateTime(endTimeTime)) {
+                    if (picked != null &&
+                        picked != TimeOfDay.fromDateTime(endTimeTime)) {
                       setState(() {
-                        endTimeTime = DateTime.fromMicrosecondsSinceEpoch(picked.hour * 60 * 60 * 1000000 + picked.minute * 60 * 1000000, isUtc: true);
-                        endTime = endTimeTime.hour.toString() + ":" + endTimeTime.minute.toString() + ((is24HoursFormat) ? "" : ((endTimeTime.hour > 12) ? "PM" : "AM"));
+                        endTimeTime = DateTime.fromMicrosecondsSinceEpoch(
+                            picked.hour * 60 * 60 * 1000000 +
+                                picked.minute * 60 * 1000000,
+                            isUtc: true);
+                        endTime = endTimeTime.hour.toString() +
+                            ":" +
+                            endTimeTime.minute.toString() +
+                            ((is24HoursFormat)
+                                ? ""
+                                : ((endTimeTime.hour > 12) ? "PM" : "AM"));
                       });
                     }
                   },
@@ -137,17 +161,36 @@ class _SellScreenState extends State<SellScreen> {
                 keyboardType: TextInputType.number,
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.white, fontSize: 30),
+                controller: priceController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Price',
                   hintStyle: TextStyle(color: Colors.white24, fontSize: 30),
                 ),
-              ),
-            ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                List<String> locations = [];
+                User? user = auth.currentUser;
+                values.forEach((key, value) {
+                  if (value == true) locations.add(key);
+                });
+                if (user != null) {
+                  Seller seller = Seller(
+                      "",
+                      user.uid,
+                      locations,
+                      TimeRange(Timestamp.fromDate(startTimeTime),
+                          Timestamp.fromDate(endTimeTime)),
+                      double.parse(priceController.text));
+
+                  print("SIFSIFISFHJIS");
+                  print(seller);
+                  addSeller(seller);
+                }
+              },
               style: ButtonStyle(
-                backgroundColor: MaterialStateColor.resolveWith((states) => Colors.blue),
+                backgroundColor:
+                    MaterialStateColor.resolveWith((states) => Colors.blue),
               ),
               child: const Text('Submit Sell Request'),
             ),
