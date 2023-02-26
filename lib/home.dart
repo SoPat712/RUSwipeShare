@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
       stateManagement: true, // Default is true.
       hideNavigationBarWhenKeyboardShows:
           true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
-      decoration: NavBarDecoration(
+      decoration: const NavBarDecoration(
           // border: Border(
           //   top: BorderSide(width: 2.0, color: Colors.white),
           // ),

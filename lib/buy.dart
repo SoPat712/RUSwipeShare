@@ -1,8 +1,12 @@
+import 'dart:collection';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:material_dialogs/shared/types.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
 import 'package:material_dialogs/material_dialogs.dart';
+import 'package:ruswipeshare/main.dart';
 
 enum CampusState { campuses, list_options, offers }
 
@@ -18,9 +22,23 @@ final List<String> entries = <String>[
   'Pearl Morse',
   'Jana Munguia'
 ];
+final Map<String, String> nameToAsset = {
+  'Brower Dining Hall': 'brower.jpg',
+  'Cafe West': 'cafe_west.jpg',
+  'Busch Dining Hall': 'bdh.jpg',
+  'Woody\'s Cafe': 'woodys.jpg',
+  'Livingston Dining Hall': 'ldh.jpg',
+  'Kilmer\'s Market': 'kilmers.png',
+  'Sbarro\'s': 'sbarros.jpg',
+  'Neilson Dining Hall': 'neilson.jpg',
+  'Cook Cafe': 'cook_cafe.jpg',
+  'Douglass Cafe': 'doug_cafe.jpg',
+  'Harvest INFH': 'harvest.jpg',
+  'Red Pine Pizza': 'red_pine.jpg'
+};
 final List<List<String>> eatingLocations = [
   <String>['Brower Dining Hall', 'Cafe West'],
-  <String>['Busch Dining Hall', 'Woody\'s'],
+  <String>['Busch Dining Hall', 'Woody\'s Cafe'],
   <String>[
     'Livingston Dining Hall',
     'Kilmer\'s Market',
@@ -35,6 +53,11 @@ final List<List<String>> eatingLocations = [
   ]
 ];
 final List<int> colorCodes = <int>[600, 500, 100];
+final List<String> timeBgAssets = <String>[
+  'assets/daytime_swipe.jpg',
+  'assets/afternoon_swipe.jpg',
+  'assets/nighttime_swipe.jpg'
+];
 
 class BuyScreen extends StatefulWidget {
   const BuyScreen({Key? key}) : super(key: key);
@@ -58,22 +81,23 @@ class _BuyScreenState extends State<BuyScreen> {
                   child: Center(
                 child: GridView.count(
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   crossAxisCount: 2,
                   crossAxisSpacing: 15,
                   childAspectRatio: 0.8,
                   mainAxisSpacing: 20,
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   children: [
                     InkWell(
                       onTap: () {
                         setState(() {
                           _currentState = CampusState.list_options;
-                          _diningOptions = eatingLocations[3];
+                          _diningOptions = eatingLocations[0];
                         });
                       },
                       child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(25)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(25)),
                         child: Column(
                           children: [
                             Expanded(
@@ -84,9 +108,9 @@ class _BuyScreenState extends State<BuyScreen> {
                             ),
                             Container(
                               width: double.infinity,
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               color: Colors.red,
-                              child: Text(
+                              child: const Text(
                                 "College Avenue",
                                 textAlign: TextAlign.center,
                               ),
@@ -95,70 +119,97 @@ class _BuyScreenState extends State<BuyScreen> {
                         ),
                       ),
                     ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(25)),
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: Image.asset(
-                              'assets/busch_bg.jpg',
-                              fit: BoxFit.cover,
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          _currentState = CampusState.list_options;
+                          _diningOptions = eatingLocations[1];
+                        });
+                      },
+                      child: ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(25)),
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: Image.asset(
+                                'assets/busch_bg.jpg',
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                          ),
-                          Container(
-                            width: double.infinity,
-                            padding: EdgeInsets.all(8),
-                            color: Colors.green,
-                            child: Text(
-                              "Busch",
-                              textAlign: TextAlign.center,
+                            Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(8),
+                              color: Colors.red,
+                              child: const Text(
+                                "Busch",
+                                textAlign: TextAlign.center,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(25)),
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: Image.asset(
-                              'assets/livi_bg.jpg',
-                              fit: BoxFit.cover,
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          _currentState = CampusState.list_options;
+                          _diningOptions = eatingLocations[2];
+                        });
+                      },
+                      child: ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(25)),
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: Image.asset(
+                                'assets/livi_bg.jpg',
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                          ),
-                          Container(
-                            width: double.infinity,
-                            padding: EdgeInsets.all(8),
-                            color: Colors.blue,
-                            child: Text(
-                              "Livingston",
-                              textAlign: TextAlign.center,
+                            Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(8),
+                              color: Colors.red,
+                              child: const Text(
+                                "Livi",
+                                textAlign: TextAlign.center,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(25)),
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: Image.asset(
-                              'assets/cd_bg.jpg',
-                              fit: BoxFit.cover,
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          _currentState = CampusState.list_options;
+                          _diningOptions = eatingLocations[3];
+                        });
+                      },
+                      child: ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(25)),
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: Image.asset(
+                                'assets/cd_bg.jpg',
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                          ),
-                          Container(
-                            width: double.infinity,
-                            padding: EdgeInsets.all(8),
-                            color: Colors.yellow[700],
-                            child: Text(
-                              "Cook-Douglass",
-                              textAlign: TextAlign.center,
+                            Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(8),
+                              color: Colors.red,
+                              child: const Text(
+                                "Cook-Douglass",
+                                textAlign: TextAlign.center,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -169,8 +220,7 @@ class _BuyScreenState extends State<BuyScreen> {
         );
       case CampusState.list_options:
         return Scaffold(
-            body: Column(
-          children: [
+          body: Column(children: [
             Container(
               width: double.infinity,
               child: ElevatedButton(
@@ -179,51 +229,63 @@ class _BuyScreenState extends State<BuyScreen> {
                       _currentState = CampusState.campuses;
                     });
                   },
-                  child: Text("Choose A Different Location")),
+                  child: const Text("Choose A Different Location")),
             ),
             Expanded(
               child: ListView.builder(
-                physics: BouncingScrollPhysics(),
-                itemCount: _diningOptions.length,
-                padding: EdgeInsets.zero,
-                itemBuilder: (BuildContext context, int index) {
-                  return InkWell(
-                    onTap: () {
-                      setState(() {
-                        _currentState = CampusState.offers;
-                        _selectedLocation = _diningOptions.elementAt(index);
-                      });
-                    },
-                    child: Container(
-                      height: 80,
-                      color: Colors.blue,
-                      margin: const EdgeInsets.only(bottom: 4),
-                      child: Row(
-                        children: [
-                          Container(
-                            color: Colors.red,
-                            margin: EdgeInsets.only(top: 4, left: 4, bottom: 4),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: _diningOptions.length,
+                  padding: EdgeInsets.zero,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      margin: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: CustomMaterialColor(240, 240, 240).mdColor,
+                              width: 2),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(40))),
+                      child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            _currentState = CampusState.offers;
+                            _selectedLocation = _diningOptions.elementAt(index);
+                          });
+                        },
+                        child: ClipRRect(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(40)),
+                          child: Container(
+                            height: 80,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: AssetImage("assets/" +
+                                  nameToAsset[
+                                      _diningOptions.elementAt(index)]!),
+                            )),
+                            child: BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                              child: Container(
+                                padding: const EdgeInsets.only(right: 40),
+                                alignment: Alignment.bottomRight,
+                                margin: const EdgeInsets.only(
+                                    top: 4, left: 20, bottom: 4),
+                                child: Text(
                                   _diningOptions[index],
-                                  textAlign: TextAlign.start,
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(fontSize: 24),
                                 ),
-                              ],
+                              ),
                             ),
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
-        ));
+                    );
+                  }),
+            )
+          ]),
+        );
       case CampusState.offers:
         return Scaffold(
           body: Column(
@@ -247,15 +309,15 @@ class _BuyScreenState extends State<BuyScreen> {
               ]),
               Expanded(
                 child: ListView.builder(
-                    physics: BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     itemCount: 30,
                     padding: EdgeInsets.zero,
                     itemBuilder: (BuildContext context, int index) {
                       return InkWell(
                         onTap: () {
                           Dialogs.materialDialog(
-                            color: Colors.white,
-                            customView: TransactionDetails(),
+                            color: CustomMaterialColor(240, 240, 240).mdColor,
+                            customView: const TransactionDetails(),
                             customViewPosition:
                                 CustomViewPosition.BEFORE_ACTION,
                             msg:
@@ -267,7 +329,7 @@ class _BuyScreenState extends State<BuyScreen> {
                                 onPressed: () {},
                                 text: 'Cancel',
                                 iconData: Icons.cancel_outlined,
-                                textStyle: TextStyle(color: Colors.grey),
+                                textStyle: const TextStyle(color: Colors.grey),
                                 iconColor: Colors.grey,
                               ),
                               IconsButton(
@@ -275,75 +337,99 @@ class _BuyScreenState extends State<BuyScreen> {
                                 text: 'Purchase',
                                 iconData: Icons.done,
                                 color: Colors.blue,
-                                textStyle: TextStyle(color: Colors.white),
                                 iconColor: Colors.white,
                               ),
                             ],
                           );
                         },
                         child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: CustomMaterialColor(240, 240, 240)
+                                      .mdColor,
+                                  width: 2),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(40))),
+                          margin: const EdgeInsets.all(4),
                           height: 80,
-                          // color: Colors.blue,
-                          margin: const EdgeInsets.only(bottom: 4),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 7,
-                                child: Container(
-                                  color: Colors.red,
-                                  margin: EdgeInsets.only(
-                                      top: 4, left: 4, bottom: 4),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        entries[index % entries.length] +
-                                            " " +
-                                            _selectedLocation,
-                                        textAlign: TextAlign.start,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(fontSize: 24),
-                                      ),
-                                      Row(
-                                        children: const [
-                                          Icon(Icons.star, size: 16),
-                                          Icon(Icons.star, size: 16),
-                                          Icon(Icons.star, size: 16),
-                                          Icon(Icons.star_half, size: 16),
-                                          Icon(Icons.star_border, size: 16),
-                                        ],
-                                      ),
-                                      Expanded(
+                          child: ClipRRect(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(40)),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                colorFilter: const ColorFilter.mode(
+                                    Colors.black26, BlendMode.darken),
+                                fit: BoxFit.cover,
+                                image: AssetImage(timeBgAssets[index % 3]),
+                              )),
+                              child: BackdropFilter(
+                                filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 7,
+                                      child: Container(
+                                        padding: EdgeInsets.only(left: 20),
+                                        // color: Colors.red,
+                                        margin: const EdgeInsets.only(
+                                            top: 4, left: 4, bottom: 4),
                                         child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: const [
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
                                             Text(
-                                              '88:88PM - 88:88PM',
+                                              entries[index % entries.length],
                                               textAlign: TextAlign.start,
                                               overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(fontSize: 16),
+                                              style:
+                                                  const TextStyle(fontSize: 20),
                                             ),
+                                            Row(
+                                              children: const [
+                                                Icon(Icons.star, size: 16),
+                                                Icon(Icons.star, size: 16),
+                                                Icon(Icons.star, size: 16),
+                                                Icon(Icons.star_half, size: 16),
+                                                Icon(Icons.star_border,
+                                                    size: 16),
+                                              ],
+                                            ),
+                                            Expanded(
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: const [
+                                                  Text(
+                                                    '88:88PM - 88:88PM',
+                                                    textAlign: TextAlign.start,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style:
+                                                        TextStyle(fontSize: 16),
+                                                  ),
+                                                ],
+                                              ),
+                                            )
                                           ],
                                         ),
-                                      )
-                                    ],
-                                  ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Container(
+                                        padding: EdgeInsets.only(right: 15),
+                                        child: Text(
+                                          '\$88',
+                                          textAlign: TextAlign.end,
+                                          style: TextStyle(fontSize: 44),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              Expanded(
-                                flex: 3,
-                                child: Container(
-                                  color: Colors.orange,
-                                  child: const Text(
-                                    '\$88',
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(fontSize: 44),
-                                  ),
-                                ),
-                              )
-                            ],
+                            ),
                           ),
                         ),
                       );
