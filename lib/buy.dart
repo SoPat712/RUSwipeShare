@@ -2,6 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:ruswipeshare/main.dart';
+import 'package:intl/intl.dart';
+
+import 'meetings.dart';
 
 enum CampusState { campuses, list_options, offers }
 
@@ -64,6 +67,8 @@ class BuyScreen extends StatefulWidget {
 class _BuyScreenState extends State<BuyScreen> {
   CampusState _currentState = CampusState.campuses;
   List<String> _diningOptions = List.empty();
+  List<Seller> _sellersAtDiningHall = [];
+
   String _selectedLocation = "";
   @override
   Widget build(BuildContext context) {
@@ -348,157 +353,199 @@ class _BuyScreenState extends State<BuyScreen> {
                     itemCount: 30,
                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                     itemBuilder: (BuildContext context, int index) {
-                      return InkWell(
-                        onTap: () {
-                          showSheet(context, index);
-                          // showDialog(
-                          //     context: context,
-                          //     builder: (BuildContext context) => Dialog(
-                          //         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                          //         shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
-                          //         child: Padding(
-                          //           padding: const EdgeInsets.all(8.0),
-                          //           child: Column(
-                          //             mainAxisSize: MainAxisSize.min,
-                          //             mainAxisAlignment: MainAxisAlignment.center,
-                          //             children: <Widget>[
-                          //               const Text('Transaction Details'),
-                          //               const SizedBox(height: 15),
-                          //               TextButton(
-                          //                 onPressed: () {
-                          //                   Navigator.pop(context);
-                          //                 },
-                          //                 child: const Text('Close'),
-                          //               ),
-                          //             ],
-                          //           ),
-                          //         )));
-                          // // Dialogs.materialDialog(
-                          // //   color: Theme.of(context).scaffoldBackgroundColor,
-                          // //   customView: const TransactionDetails(),
-                          // //   customViewPosition:
-                          // //       CustomViewPosition.BEFORE_ACTION,
-                          // //   msgAlign: TextAlign.center,
-                          // //   msg:
-                          // //       'Please read all the information below before purchasing.\n',
-                          // //   title: 'Transaction Details',
-                          // //   context: context,
-                          // //   actions: [
-                          // //     IconsOutlineButton(
-                          // //         onPressed: () {},
-                          // //         text: 'Cancel',
-                          // //         iconData: Icons.cancel_outlined,
-                          // //         color: Theme.of(context).primaryColor,
-                          // //         textStyle: TextStyle(
-                          // //           color: CustomMaterialColor(240, 240, 240)
-                          // //               .mdColor,
-                          // //         ),
-                          // //         iconColor: CustomMaterialColor(240, 240, 240)
-                          // //             .mdColor),
-                          // //     IconsButton(
-                          // //         onPressed: () {},
-                          // //         text: 'Purchase',
-                          // //         iconData: Icons.done,
-                          // //         color: Colors.green,
-                          // //         textStyle: TextStyle(
-                          // //           color: CustomMaterialColor(240, 240, 240)
-                          // //               .mdColor,
-                          // //         ),
-                          // //         iconColor: CustomMaterialColor(240, 240, 240)
-                          // //             .mdColor),
-                          // //   ],
-                          // // );
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: CustomMaterialColor(240, 240, 240)
-                                      .mdColor,
-                                  width: 2),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10))),
-                          margin: const EdgeInsets.all(4),
-                          height: 120,
-                          child: ClipRRect(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                colorFilter: const ColorFilter.mode(
-                                    Colors.black26, BlendMode.darken),
-                                fit: BoxFit.cover,
-                                image: AssetImage(timeBgAssets[index % 3]),
-                              )),
-                              child: BackdropFilter(
-                                filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      flex: 7,
-                                      child: Container(
-                                        padding: EdgeInsets.only(left: 20),
-                                        // color: Colors.red,
-                                        margin: const EdgeInsets.only(
-                                            top: 4, left: 4, bottom: 4),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              entries[index % entries.length],
-                                              textAlign: TextAlign.start,
-                                              overflow: TextOverflow.ellipsis,
-                                              style:
-                                                  const TextStyle(fontSize: 20),
-                                            ),
-                                            Row(
-                                              children: const [
-                                                Icon(Icons.star, size: 16),
-                                                Icon(Icons.star, size: 16),
-                                                Icon(Icons.star, size: 16),
-                                                Icon(Icons.star_half, size: 16),
-                                                Icon(Icons.star_border,
-                                                    size: 16),
-                                              ],
-                                            ),
-                                            Expanded(
+                      List<Seller> sellers = [];
+                      var loc = _diningOptions[index % _diningOptions.length];
+
+                      return FutureBuilder<List<Seller>>(
+                        future: getSellers(Filter([loc], null, null)),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<List<Seller>> snapshot) {
+                          if (snapshot.hasData) {
+                            final data = snapshot.data ?? [];
+                            String startTimeFmt = DateFormat("h:mm a").format(
+                                data[index % data.length]
+                                    .availableTime
+                                    .startTime
+                                    .toDate());
+
+                            String endTimeFmt = DateFormat("h:mm a").format(
+                                data[index % data.length]
+                                    .availableTime
+                                    .endTime
+                                    .toDate());
+
+                            final price = data[index % data.length].price;
+
+                            return InkWell(
+                              onTap: () {
+                                showSheet(context, index);
+                                // showDialog(
+                                //     context: context,
+                                //     builder: (BuildContext context) => Dialog(
+                                //         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                                //         shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
+                                //         child: Padding(
+                                //           padding: const EdgeInsets.all(8.0),
+                                //           child: Column(
+                                //             mainAxisSize: MainAxisSize.min,
+                                //             mainAxisAlignment: MainAxisAlignment.center,
+                                //             children: <Widget>[
+                                //               const Text('Transaction Details'),
+                                //               const SizedBox(height: 15),
+                                //               TextButton(
+                                //                 onPressed: () {
+                                //                   Navigator.pop(context);
+                                //                 },
+                                //                 child: const Text('Close'),
+                                //               ),
+                                //             ],
+                                //           ),
+                                //         )));
+                                // // Dialogs.materialDialog(
+                                // //   color: Theme.of(context).scaffoldBackgroundColor,
+                                // //   customView: const TransactionDetails(),
+                                // //   customViewPosition:
+                                // //       CustomViewPosition.BEFORE_ACTION,
+                                // //   msgAlign: TextAlign.center,
+                                // //   msg:
+                                // //       'Please read all the information below before purchasing.\n',
+                                // //   title: 'Transaction Details',
+                                // //   context: context,
+                                // //   actions: [
+                                // //     IconsOutlineButton(
+                                // //         onPressed: () {},
+                                // //         text: 'Cancel',
+                                // //         iconData: Icons.cancel_outlined,
+                                // //         color: Theme.of(context).primaryColor,
+                                // //         textStyle: TextStyle(
+                                // //           color: CustomMaterialColor(240, 240, 240)
+                                // //               .mdColor,
+                                // //         ),
+                                // //         iconColor: CustomMaterialColor(240, 240, 240)
+                                // //             .mdColor),
+                                // //     IconsButton(
+                                // //         onPressed: () {},
+                                // //         text: 'Purchase',
+                                // //         iconData: Icons.done,
+                                // //         color: Colors.green,
+                                // //         textStyle: TextStyle(
+                                // //           color: CustomMaterialColor(240, 240, 240)
+                                // //               .mdColor,
+                                // //         ),
+                                // //         iconColor: CustomMaterialColor(240, 240, 240)
+                                // //             .mdColor),
+                                // //   ],
+                                // // );
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color:
+                                            CustomMaterialColor(240, 240, 240)
+                                                .mdColor,
+                                        width: 2),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10))),
+                                margin: const EdgeInsets.all(4),
+                                height: 120,
+                                child: ClipRRect(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(10)),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                      colorFilter: const ColorFilter.mode(
+                                          Colors.black26, BlendMode.darken),
+                                      fit: BoxFit.cover,
+                                      image:
+                                          AssetImage(timeBgAssets[index % 3]),
+                                    )),
+                                    child: BackdropFilter(
+                                      filter: ImageFilter.blur(
+                                          sigmaX: 2, sigmaY: 2),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            flex: 7,
+                                            child: Container(
+                                              padding:
+                                                  EdgeInsets.only(left: 20),
+                                              // color: Colors.red,
+                                              margin: const EdgeInsets.only(
+                                                  top: 4, left: 4, bottom: 4),
                                               child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
-                                                children: const [
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
                                                   Text(
-                                                    '88:88PM - 88:88PM',
+                                                    data?[index % data.length]
+                                                            .name ??
+                                                        "Unknown Seller",
                                                     textAlign: TextAlign.start,
                                                     overflow:
                                                         TextOverflow.ellipsis,
-                                                    style:
-                                                        TextStyle(fontSize: 16),
+                                                    style: const TextStyle(
+                                                        fontSize: 20),
                                                   ),
+                                                  Row(
+                                                    children: const [
+                                                      Icon(Icons.star,
+                                                          size: 16),
+                                                      Icon(Icons.star,
+                                                          size: 16),
+                                                      Icon(Icons.star,
+                                                          size: 16),
+                                                      Icon(Icons.star_half,
+                                                          size: 16),
+                                                      Icon(Icons.star_border,
+                                                          size: 16),
+                                                    ],
+                                                  ),
+                                                  Expanded(
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment.end,
+                                                      children: [
+                                                        Text(
+                                                          "$startTimeFmt - $endTimeFmt",
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          style: TextStyle(
+                                                              fontSize: 16),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
                                                 ],
                                               ),
-                                            )
-                                          ],
-                                        ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 3,
+                                            child: Container(
+                                              padding:
+                                                  EdgeInsets.only(right: 15),
+                                              child: Text(
+                                                '\$${price}',
+                                                textAlign: TextAlign.end,
+                                                style: TextStyle(fontSize: 44),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    Expanded(
-                                      flex: 3,
-                                      child: Container(
-                                        padding: EdgeInsets.only(right: 15),
-                                        child: Text(
-                                          '\$88',
-                                          textAlign: TextAlign.end,
-                                          style: TextStyle(fontSize: 44),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                        ),
+                            );
+                          } else if (snapshot.hasError) {
+                            return Text("${snapshot.error}");
+                          }
+                          return CircularProgressIndicator();
+                        },
                       );
                     }),
               ),
