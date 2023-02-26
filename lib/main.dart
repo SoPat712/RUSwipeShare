@@ -1,87 +1,49 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:ruswipeshare/home.dart';
-import 'package:ruswipeshare/sell.dart';
 
 import 'firebase_options.dart';
 import 'auth_gate.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const HomeScreen(),
-    );
-  }
+  
+ const MyApp({super.key});
+ @override
+ Widget build(BuildContext context) {
+   return MaterialApp(
+     theme: ThemeData(
+       primarySwatch: CustomMaterialColor(200,61,61).mdColor,
+     ),
+     home: const AuthGate(),
+   );
+ }
 }
+class CustomMaterialColor {
+  final int r;
+  final int g;
+  final int b;
 
-class MyNavBar extends StatefulWidget {
-  MyNavBar({super.key});
+  CustomMaterialColor(this.r, this.g, this.b);
 
-  @override
-  State<MyNavBar> createState() => MyNavBarState();
-}
-
-class MyNavBarState extends State<MyNavBar> {
-  final pages = [
-    const SellScreen(),
-    const SellScreen(),
-  ];
-
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    if (runtimeType == pages.elementAt(index).runtimeType) return;
-
-    setState(() {
-      _selectedIndex = index;
-    });
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => pages.elementAt(index)),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      backgroundColor: Colors.red,
-      selectedItemColor: Colors.black,
-      unselectedItemColor: Colors.black54,
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.shopping_cart),
-          label: 'Buy',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.attach_money),
-          label: 'Sell',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Profile',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.settings),
-          label: 'Settings',
-        ),
-      ],
-      currentIndex: _selectedIndex,
-      onTap: _onItemTapped,
-    );
+  MaterialColor get mdColor {
+    Map<int, Color> color = {
+      50: Color.fromRGBO(r, g, b, .1),
+      100: Color.fromRGBO(r, g, b, .2),
+      200: Color.fromRGBO(r, g, b, .3),
+      300: Color.fromRGBO(r, g, b, .4),
+      400: Color.fromRGBO(r, g, b, .5),
+      500: Color.fromRGBO(r, g, b, .6),
+      600: Color.fromRGBO(r, g, b, .7),
+      700: Color.fromRGBO(r, g, b, .8),
+      800: Color.fromRGBO(r, g, b, .9),
+      900: Color.fromRGBO(r, g, b, 1),
+    };
+    return MaterialColor(Color.fromRGBO(r, g, b, 1).value, color);
   }
 }

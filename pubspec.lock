@@ -201,30 +201,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.3+30"
-  firebase_ui_auth:
-    dependency: "direct main"
-    description:
-      name: firebase_ui_auth
-      sha256: "67b52b2f7d607355a07bae28d67f28e7b52a1e555a7f7cd1455f2e95be4d0816"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.14"
-  firebase_ui_localizations:
-    dependency: transitive
-    description:
-      name: firebase_ui_localizations
-      sha256: "8ab06ef14bbad6c2f8af63aa2995016996c205fd05db7912df18838a51d023e4"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.0"
-  firebase_ui_oauth:
-    dependency: transitive
-    description:
-      name: firebase_ui_oauth
-      sha256: "77faba56761198f57b8939e4a93ef6dbabc1b972a22ff90ec1033dcff981a071"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.14"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -302,7 +278,7 @@ packages:
     source: hosted
     version: "0.4.3+20"
   google_sign_in:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: google_sign_in
       sha256: "821f354c053d51a2d417b02d42532a19a6ea8057d2f9ebb8863c07d81c98aaf9"
@@ -429,6 +405,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+  persistent_bottom_nav_bar:
+    dependency: "direct main"
+    description:
+      name: persistent_bottom_nav_bar
+      sha256: e2e031e3366fde01511e372a9a19d720a9b252bb456e5c8d77a30d7a4a2ddfb0
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.2"
   petitparser:
     dependency: transitive
     description:

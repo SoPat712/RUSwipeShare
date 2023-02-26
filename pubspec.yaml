@@ -38,9 +38,8 @@ dependencies:
   firebase_core: ^2.7.0
   firebase_auth: ^4.2.9
   flutterfire_ui: ^0.4.3+20
-  google_sign_in: ^5.4.4
   flutter_dotenv: ^5.0.2
-  firebase_ui_auth: ^1.1.14
+  persistent_bottom_nav_bar: any
 
 dev_dependencies:
   flutter_test:
