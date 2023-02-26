@@ -42,6 +42,7 @@ dependencies:
   persistent_bottom_nav_bar: any
   geolocator: ^9.0.2
   flutter_credit_card: any
+  flutter_stripe: any
 
 dev_dependencies:
   flutter_test:
