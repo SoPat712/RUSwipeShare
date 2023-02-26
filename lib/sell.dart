@@ -46,10 +46,7 @@ class _SellScreenState extends State<SellScreen> {
       resizeToAvoidBottomInset: true,
       body: Padding(
         padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-        child:
-            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-        child:
-            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+        child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           Row(
             children: [
               Expanded(
@@ -119,9 +116,7 @@ class _SellScreenState extends State<SellScreen> {
             children: [
               ElevatedButton(
                 onPressed: () async {
-                  DatePicker.showDateTimePicker(context,
-                      showTitleActions: true,
-                      minTime: DateTime.now(), onChanged: (date) {
+                  DatePicker.showDateTimePicker(context, showTitleActions: true, minTime: DateTime.now(), onChanged: (date) {
                     print('change $date');
                   }, onConfirm: (date) {
                     setState(() {
@@ -145,9 +140,7 @@ class _SellScreenState extends State<SellScreen> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  DatePicker.showDateTimePicker(context,
-                      showTitleActions: true,
-                      minTime: DateTime.now(), onChanged: (date) {
+                  DatePicker.showDateTimePicker(context, showTitleActions: true, minTime: DateTime.now(), onChanged: (date) {
                     print('change $date');
                   }, onConfirm: (date) {
                     setState(() {
@@ -200,19 +193,12 @@ class _SellScreenState extends State<SellScreen> {
                 if (value == true) locations.add(key);
               });
               if (user != null) {
-                Seller seller = Seller(
-                    user.displayName,
-                    user.uid,
-                    locations,
-                    TimeRange(Timestamp.fromDate(startTimeTime),
-                        Timestamp.fromDate(endTimeTime)),
-                    double.parse(priceController.text));
+                Seller seller = Seller(user.displayName, user.uid, locations, TimeRange(Timestamp.fromDate(startTimeTime), Timestamp.fromDate(endTimeTime)), double.parse(priceController.text));
                 addSeller(seller);
               }
             },
             style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateColor.resolveWith((states) => Colors.blue),
+              backgroundColor: MaterialStateColor.resolveWith((states) => Colors.blue),
             ),
             child: const Text('Submit Sell Request'),
           ),
