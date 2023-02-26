@@ -109,7 +109,7 @@ class BuyScreen extends StatefulWidget {
 }
 
 class _BuyScreenState extends State<BuyScreen> {
-  DateFormat dateFormat = DateFormat("HH:mm aa");
+  DateFormat dateFormat = DateFormat("h:mm a");
 
   CampusState _currentState = CampusState.campuses;
   List<String> _diningOptions = List.empty();
@@ -371,7 +371,7 @@ class _BuyScreenState extends State<BuyScreen> {
                   child: Text(
                     _selectedLocation,
                     style: TextStyle(
-                      fontSize: 30,
+                      fontSize: 20,
                     ),
                   ),
                 ),
