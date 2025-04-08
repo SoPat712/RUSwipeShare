@@ -1,6 +1,10 @@
 # RU SwipeShare
 ![SwipeShare](https://slwordpress.rutgers.edu/dining/wp-content/uploads/sites/138/2017/06/swipe.png)
 
+
+<img src="https://github.com/user-attachments/assets/a7dfe484-f30b-49c2-b24f-0eab77da82fc" width="150">
+
+
 ## Devpost
 ### https://devpost.com/software/ru-swipeshare?ref_content=my-projects-tab&ref_feature=my_projects
 
